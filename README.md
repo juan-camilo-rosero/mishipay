@@ -6,13 +6,13 @@ Aquí irá una descripción del proyecto que haremos en el primer sprint :3
 
 ## Primero (del 4 al 8)
 
-###*Temas para reunión:*
+*Temas para reunión:*
 
 * Generalidades sobre el proyecto
 * Roles
 * Preguntas para hacerle al profe
 
-###*Entregables:* Reporte técnico
+*Entregables:* Reporte técnico
 
 * Título del proyecto
 * Integrantes del equipo
@@ -31,7 +31,7 @@ Aquí irá una descripción del proyecto que haremos en el primer sprint :3
 
 ## Segundo (del 11 al 15)
 
-###*Temas para reunión:*
+*Temas para reunión:*
 
 * Estructuras de datos a usar en base a los requerimientos de funcionalidad
 * Lenguajes y frameworks a utilizar junto con los entornos de ejecución y despliegue
@@ -39,8 +39,7 @@ Aquí irá una descripción del proyecto que haremos en el primer sprint :3
 * Cómo se van a almacenar los datos
 * Roles de cada uno
 
-###*Entregables:*
-
+*Entregables:*
 * Archivo con las clases para cada estructura de datos que vayamos a utilizar con comentarios explicando cada una
 * Documentación general del proyecto (puede ser en éste mismo documento al inicio)
 * Archivo con las funciones para almacenar los datos
@@ -48,12 +47,12 @@ Aquí irá una descripción del proyecto que haremos en el primer sprint :3
 
 ## Tercero (del 18 al 22)
 
-###*Temas para reunión:*
+*Temas para reunión:*
 
 * Seguimiento del proyecto
 * Roles para el último sprint
 
-###*Entregables:*
+*Entregables:*
 
 * Archivo con las funciones para cada una de las funcionalidades básicas del proyecto (evidentemente comentadas)
 * Datos de prueba producidos de forma aleatoria
@@ -64,12 +63,12 @@ Aquí irá una descripción del proyecto que haremos en el primer sprint :3
 
 ## Cuarto (del 25 al 29)
 
-###*Temas para reunión:*
+*Temas para reunión:*
 
 * Revisión final de todo el proyecto
 * Preparar presentación
 
-###*Entregables:*
+*Entregables:*
 
 * Versión ejecutable del programa con los datos de prueba
 * Video demostrativo del prototipo de software
