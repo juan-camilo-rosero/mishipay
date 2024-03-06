@@ -11,6 +11,7 @@ Aquí irá una descripción del proyecto que haremos en el primer sprint :3
 * Generalidades sobre el proyecto
 * Roles
 * Preguntas para hacerle al profe
+* Lenguajes y frameworks a utilizar junto con los entornos de ejecución y despliegue
 
 *Entregables:* Reporte técnico
 
@@ -20,7 +21,7 @@ Aquí irá una descripción del proyecto que haremos en el primer sprint :3
 * Usuarios del producto de software
 * Requerimientos funcionales del software
 * Descripción preliminar de la interfaz (vista gráfica) de usuario
-* Entornos de desarrollo y de operación (ejecución y despliegue) (puede esperar)
+* Entornos de desarrollo y de operación (ejecución y despliegue)
 * Descripción general del primer prototipo implementado (puede esperar)
 * Descripción del diseño y de la implementación. Se debe explicar claramente la aplicación de las estructuras de datos secuenciales en la solución del problema
 * Reporte de pruebas del prototipo y análisis comparativo (puede esperar)
@@ -34,7 +35,6 @@ Aquí irá una descripción del proyecto que haremos en el primer sprint :3
 *Temas para reunión:*
 
 * Estructuras de datos a usar en base a los requerimientos de funcionalidad
-* Lenguajes y frameworks a utilizar junto con los entornos de ejecución y despliegue
 * Cómo se va a modularizar el código y qué funciones se van a implementar
 * Cómo se van a almacenar los datos
 * Roles de cada uno
