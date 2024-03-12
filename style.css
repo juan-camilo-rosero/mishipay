@@ -214,6 +214,15 @@ footer p{
     font-size: .8rem;
 }
 
+/* ******************** Sign up ******************** */
+
+#sign-up{
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--secondary-color);
+    position: fixed;
+}
+
 /* ******************** Tablet view ******************** */
 
 
