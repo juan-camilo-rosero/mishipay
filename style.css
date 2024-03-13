@@ -39,6 +39,25 @@ body {
 
 /* ******************** General ******************** */
 
+.owo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.uwunt{
+    width: 80vw;
+    font-size: 2.5rem;
+    margin-bottom: 4rem;
+    color: var(--primary-color);
+    text-align: center;
+}
+
+.userEmail{
+    font-size: 1.5rem;
+    font-weight: 400;
+}
+
 .none{
     display: none;
 }
@@ -122,26 +141,6 @@ header{
     height: 60%;
     margin-left: 10vw;
     cursor: pointer;
-}
-
-.header-menu{
-    height: 3rem;
-    width: 3rem;
-    border-radius: .5rem;
-    background-color: var(--primary-color);
-    margin-right: 10vw;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.menu-line{
-    width: 50%;
-    height: .2rem;
-    border-radius: 1rem;
-    background-color: var(--light-gray);
-    margin: .3rem;
 }
 
 /* ******************** Hero section ******************** */
@@ -438,16 +437,7 @@ footer p{
         height: 60%;
         margin-left: 9.35vw;
     }
-
-    .header-menu{
-        display: none;
-        margin-right: 9.35vw;
-    }
-
-    .menu-line{
-        margin: .25rem;
-    }
-
+    
     .header-btns{
         display: flex;
         margin-right: 9.35vw;

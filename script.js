@@ -1,3 +1,4 @@
+import { login, signUp } from "./account.js";
 import { changeScreen } from "./transitions.js";
 
 const d = document,
@@ -7,9 +8,14 @@ $closeSignUp = d.querySelector("#sign-up .close"),
 $loginHeader = d.querySelector(".header-login"),
 $LoginHS = d.querySelector(".hero-section-login"),
 $closeLogin = d.querySelector("#login .close"),
-$logo = d.querySelector(".header-logo")
+$logo = d.querySelector(".header-logo"),
+$signUpBtn = d.querySelector(".sign-up-btn"),
+$loginBtn = d.querySelector(".login-btn")
 
 d.addEventListener("DOMContentLoaded", e => {
+
+    // Transitions
+
     $signUpHeader.addEventListener("click", e => changeScreen("main", "#sign-up"))
     $signUpHeader.addEventListener("click", e => changeScreen("#login", "#sign-up"))
     $signUpHS.addEventListener("click", e => changeScreen("main", "#sign-up"))
@@ -20,4 +26,18 @@ d.addEventListener("DOMContentLoaded", e => {
     $closeLogin.addEventListener("click", e => changeScreen("#login", "main"))
     $logo.addEventListener("click", e => changeScreen("#login", "main"))
     $logo.addEventListener("click", e => changeScreen("#sign-up", "main"))
+
+    // Sign up
+
+    $signUpBtn.addEventListener("click", async e => {
+        e.preventDefault()
+        signUp("#sign-up-email", "#sign-up-password", "#sign-up-name", "#sign-up-tel")
+    })
+
+    // Login
+
+    $loginBtn.addEventListener("click", e => {
+        e.preventDefault()
+        login("#login-email", "#login-password")
+    })
 })

@@ -31,10 +31,6 @@
 <body>
     <header>
         <img src="assets/logo.png" alt="Logo MishiPay" class="header-logo">
-        <div class="header-menu">
-            <div class="menu-line"></div>
-            <div class="menu-line"></div>
-        </div>
         <div class="header-btns">
             <button class="header-login">Iniciar sesión</button>
             <button class="header-sign-up">Crear cuenta</button>
@@ -77,10 +73,10 @@
             </div>
             <h3 class="block-title">Ingresa tu información</h3>
             <form>
-                <input type="tel" placeholder="Número de celular">
-                <input type="text" placeholder="Nombre">
-                <input type="email" placeholder="Correo electrónico">
-                <input type="password" placeholder="Contraseña">
+                <input type="tel" placeholder="Número de celular" id="sign-up-tel">
+                <input type="text" placeholder="Nombre" id="sign-up-name">
+                <input type="email" placeholder="Correo electrónico" id="sign-up-email">
+                <input type="password" placeholder="Contraseña" id="sign-up-password">
                 <button type="submit" class="sign-up-btn">Crear cuenta</button>
             </form>
         </figure>
@@ -92,8 +88,8 @@
             </div>
             <h3 class="block-title">Iniciar sesión</h3>
             <form>
-                <input type="email" placeholder="Correo electrónico">
-                <input type="password" placeholder="Contraseña">
+                <input type="tel" placeholder="Correo electrónico" id="login-email">
+                <input type="password" placeholder="Contraseña" id="login-password">
                 <button type="submit" class="login-btn">Entrar</button>
             </form>
         </figure>
