@@ -2,6 +2,7 @@ import { login, signUp } from "./account.js";
 import { changeScreen } from "./transitions.js";
 
 const d = document,
+ls = localStorage,
 $signUpHeader = d.querySelector(".header-sign-up"),
 $signUpHS = d.querySelector(".hero-section-sign-up"),
 $closeSignUp = d.querySelector("#sign-up .close"),
@@ -40,4 +41,9 @@ d.addEventListener("DOMContentLoaded", e => {
         e.preventDefault()
         login("#login-email", "#login-password")
     })
+
+    if(ls.getItem["has-to-login"]){
+        changeScreen("main", "#login")
+        ls.setItem("has-to-login", false)
+    }
 })
