@@ -54,16 +54,16 @@
         </section>
         <section id="why-us">
             <h2 class="section-title" data-aos="fade-up" data-aos-duration="1000">¿Por qué MishiPay?</h2>
-            <div class="why-us-blocks" data-aos="fade-up" data-aos-duration="1000">
-                <figure>
+            <div class="why-us-blocks">
+                <figure data-aos="fade-up" data-aos-duration="1000">
                     <h3>Lleva tus cuentas</h3>
                     <p class="normal-medium-text">Con MishiPay, puedes llevar un historial de los pagos que has efectuado y recibido, permitiéndote tener un mayor control sobre tus finanzas</p>
                 </figure>
-                <figure>
+                <figure data-aos="fade-up" data-aos-duration="1000">
                     <h3>Fácil de usar</h3>
                     <p class="normal-medium-text">Lo único que debes hacer para efectuar un pago es ingresar el monto a enviar y el celular del usuario que va a recibir el dinero, es como nequi, pero con gatitos</p>
                 </figure>
-                <figure>
+                <figure data-aos="fade-up" data-aos-duration="1000">
                     <h3>Lista de pagos</h3>
                     <p class="normal-medium-text">Puedes hacer una lista con tus deudas, y con un solo botón podrás pagarlas todas cuando tú quieras</p>
                 </figure>
@@ -72,12 +72,29 @@
     </main>
     <section id="sign-up" class="none hidden">
         <figure class="sign-up-container">
-            <h3 class="block-title">Crear cuenta</h3>
+            <div class="close">
+                <p>X</p>
+            </div>
+            <h3 class="block-title">Ingresa tu información</h3>
             <form>
-                <input type="text" placeholder="Número de celular">
+                <input type="tel" placeholder="Número de celular">
                 <input type="text" placeholder="Nombre">
+                <input type="email" placeholder="Correo electrónico">
                 <input type="password" placeholder="Contraseña">
-                <button type="submit">Crear cuenta</button>
+                <button type="submit" class="sign-up-btn">Crear cuenta</button>
+            </form>
+        </figure>
+    </section>
+    <section id="login" class="none hidden">
+        <figure class="login-container">
+            <div class="close">
+                <p>X</p>
+            </div>
+            <h3 class="block-title">Iniciar sesión</h3>
+            <form>
+                <input type="email" placeholder="Correo electrónico">
+                <input type="password" placeholder="Contraseña">
+                <button type="submit" class="login-btn">Entrar</button>
             </form>
         </figure>
     </section>
