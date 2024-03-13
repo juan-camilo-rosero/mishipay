@@ -1,5 +1,7 @@
 const d = document
 
+// Función para hacer transición suave entre dos pantallas
+
 export function changeScreen(screenToHide, screenToShow) {
     const $screenToHide = d.querySelector(screenToHide),
     $screenToShow = d.querySelector(screenToShow)

@@ -1,6 +1,6 @@
 # Proyecto
 
-El producto será una billetera virtual donde el usuario podrá transferir y recibir dinero, además de que podrá hacer una lista de pagos pendientes para que pueda presionar un botón y se hagan todos los pagos en orden de prioridad hasta que se acabe el dinero
+Aquí irá una descripción del proyecto que haremos en el primer sprint :3
 
 # Sprints
 

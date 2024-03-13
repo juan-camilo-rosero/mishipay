@@ -3,6 +3,9 @@ import { changeScreen } from "./transitions.js";
 
 const d = document,
 ls = localStorage,
+
+// Botones
+
 $signUpHeader = d.querySelector(".header-sign-up"),
 $signUpHS = d.querySelector(".hero-section-sign-up"),
 $closeSignUp = d.querySelector("#sign-up .close"),
@@ -15,7 +18,7 @@ $loginBtn = d.querySelector(".login-btn")
 
 d.addEventListener("DOMContentLoaded", e => {
 
-    // Transitions
+    // Transiciones
 
     $signUpHeader.addEventListener("click", e => changeScreen("main", "#sign-up"))
     $signUpHeader.addEventListener("click", e => changeScreen("#login", "#sign-up"))
@@ -28,22 +31,22 @@ d.addEventListener("DOMContentLoaded", e => {
     $logo.addEventListener("click", e => changeScreen("#login", "main"))
     $logo.addEventListener("click", e => changeScreen("#sign-up", "main"))
 
-    // Sign up
+    // Crear cuenta
 
     $signUpBtn.addEventListener("click", async e => {
         e.preventDefault()
         signUp("#sign-up-email", "#sign-up-password", "#sign-up-name", "#sign-up-tel")
     })
 
-    // Login
+    // Iniciar sesión
 
     $loginBtn.addEventListener("click", e => {
         e.preventDefault()
         login("#login-email", "#login-password")
     })
 
-    if(ls.getItem["has-to-login"]){
+    if(ls.getItem["has-to-login"] == "true"){
         changeScreen("main", "#login")
-        ls.setItem("has-to-login", false)
+        ls.removeItem("has-to-login")
     }
 })
