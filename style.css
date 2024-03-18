@@ -75,7 +75,8 @@ body {
 .block-title{
     font-size: 1.6rem;
     color: var(--text-color);
-    width: 100%;
+    width: 80%;
+    line-height: 150%;
     text-align: center;
 }
 
@@ -128,9 +129,17 @@ header{
     top: 0;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     background-color: var(--light-gray);
     z-index: 100;
+}
+
+.header-name{
+    margin-left: 2rem;
+    color: var(--primary-color);
+    font-size: 1.8rem;
+    font-weight: 600;
+    cursor: pointer;
 }
 
 .header-btns{
@@ -139,7 +148,14 @@ header{
 
 .header-logo{
     height: 60%;
-    margin-left: 10vw;
+    cursor: pointer;
+}
+
+.header-logo-div{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     cursor: pointer;
 }
 
@@ -256,7 +272,7 @@ footer p{
 
 /* ******************** Sign up / Login ******************** */
 
-#sign-up, #login{
+#sign-up, #login, #validate-code{
     width: 100vw;
     height: 100vh;
     background-color: var(--secondary-color);
@@ -265,29 +281,29 @@ footer p{
     display: flex;
 }
 
-.sign-up-container, .login-container{
+.sign-up-container, .login-container, .validate-code-container{
     width: 100vw;
-    min-height: 50vh;
+    min-height: 35vh;
     background-color: var(--light-gray);
     display: flex;
     flex-direction: column;
     border-radius: .5rem;
     justify-content: space-around;
     align-items: center;
-    padding: 0 0 2rem 0;
+    padding: 0 0 4rem 0;
     border-radius: 1.5rem 1.5rem 0 0;
     position: fixed;
     bottom: 0;
 }
 
-.sign-up-container form, .login-container form{
+.sign-up-container form, .login-container form, .validate-code-container form{
     display: flex;
     flex-direction: column;
     justify-content: center;
     margin-top: 3rem;
 }
 
-.sign-up-container form input, .login-container form input{
+.sign-up-container form input, .login-container form input, .validate-code-container form input{
     width: calc(75vw - 2rem);
     padding: .75rem 1rem;
     background-color: var(--third-color);
@@ -300,25 +316,25 @@ footer p{
     transition: .2s;
 }
 
-.sign-up-container form input:focus, .login-container form input:focus{
+.sign-up-container form input:focus, .login-container form input:focus, .validate-code-container form input:focus{
     background-color: var(--third-color-darker);
     color: var(--primary-color-darker);
 }
 
-.sign-up-btn, .login-btn{
+.sign-up-btn, .login-btn, .validate-code-btn{
     width: 75vw;
     padding: .5rem 1rem;
     background-color: var(--primary-color);
     color: var(--light-gray);
     font-size: 1.3rem;
-    margin-top: 1.5rem;
+    margin-top: 2rem;
     border-radius: .5rem;
     border: none;
     cursor: pointer;
     transition: .2s;
 }
 
-.sign-up-btn:hover, .login-btn:hover{
+.sign-up-btn:hover, .login-btn:hover, .validate-code-btn:hover{
     background-color: var(--primary-color-darker);
 }
 
@@ -377,12 +393,12 @@ footer p{
 
     /* ******************** Sign up / Login ******************** */
 
-    .sign-up-container form, .login-container form{
+    .sign-up-container form, .login-container form, .validate-code-container form{
         align-items: center;
         margin-top: 3rem;
     }
 
-    .sign-up-container form input, .login-container form input{
+    .sign-up-container form input, .login-container form input, .validate-code-container form input{
         width: calc(50vw - 2rem);
         padding: 1rem;
         margin: 1.5rem 0;
@@ -435,7 +451,6 @@ footer p{
 
     .header-logo{
         height: 60%;
-        margin-left: 9.35vw;
     }
     
     .header-btns{
@@ -515,7 +530,11 @@ footer p{
     }
 
     .hero-section-login{
-        display: none !important;
+        margin-top: 2rem;
+    }
+
+    .hero-section-login:hover{
+        background-color: var(--third-color);
     }
 
     /* ******************** Why us ******************** */
@@ -549,14 +568,14 @@ footer p{
 
     /* ******************** Sign up / Login ******************** */
 
-    #sign-up, #login{
+    #sign-up, #login, #validate-code{
         justify-content: center;
         align-items: center;
         height: 90vh;
         margin-top: 10vh;
     }
 
-    .sign-up-container, .login-container{
+    .sign-up-container, .login-container, .validate-code-container{
         width: 50vw;
         max-width: 25rem;
         min-height: 30vh;
@@ -567,20 +586,20 @@ footer p{
         padding-bottom: 2rem;
     }
     
-    .sign-up-container form, .login-container form{
+    .sign-up-container form, .login-container form, .validate-code-container form{
         margin-top: 2rem;
         width: 50vw;
         max-width: 30rem;
     }
 
-    .sign-up-container form input, .login-container form input{
+    .sign-up-container form input, .login-container form input, .validate-code-container form input{
         width: 50%;
         padding: .5rem 1rem;
         margin: 1rem 0;
         font-size: 1rem;
     }
 
-    .sign-up-btn, .login-btn{
+    .sign-up-btn, .login-btn, .validate-code-btn{
         width: calc(50% + 2rem);
         padding: .5rem 1rem;
         font-size: 1.1rem;
