@@ -30,18 +30,17 @@
 </head>
 <body>
     <header>
-        <img src="assets/logo.png" alt="Logo MishiPay" class="header-logo">
-        <div class="header-btns">
-            <button class="header-login">Iniciar sesión</button>
-            <button class="header-sign-up">Crear cuenta</button>
+        <div class="header-logo-div">
+            <img src="assets/logo.png" alt="Logo MishiPay" class="header-logo">
+            <p class="header-name">MishiPay</p>
         </div>
     </header>
     <main>
         <section id="hero-section">
             <div class="hero-section-img" data-aos="fade-up" data-aos-duration="1000"></div>
             <div class="hero-section-content" data-aos="fade-up" data-aos-duration="1000">
-                <h1>MishiPay</h1>
-                <p class="normal-text">Tu billetera digital para pagos <b class="purple">sin complicaciones, comisiones y desde cualquier dispositivo</b></p>
+                <h1>La billetera digital para tu negocio</h1>
+                <p class="normal-text">sin complicaciones, sin comisiones y desde cualquier dispositivo</p>
                 <div class="hero-section-btns">
                     <button class="hero-section-sign-up">Comenzar ahora</button>
                     <button class="hero-section-login">Iniciar sesión</button>
@@ -75,7 +74,6 @@
             <form>
                 <input type="tel" placeholder="Número de celular" id="sign-up-tel">
                 <input type="text" placeholder="Nombre" id="sign-up-name">
-                <input type="email" placeholder="Correo electrónico" id="sign-up-email">
                 <input type="password" placeholder="Contraseña" id="sign-up-password">
                 <button type="submit" class="sign-up-btn">Crear cuenta</button>
             </form>
@@ -88,16 +86,26 @@
             </div>
             <h3 class="block-title">Iniciar sesión</h3>
             <form>
-                <input type="email" placeholder="Correo electrónico" id="login-email">
-                <input type="password" placeholder="Contraseña" id="login-password">
+                <input type="tel" placeholder="Número de celular" id="login-tel">
                 <button type="submit" class="login-btn">Entrar</button>
+            </form>
+        </figure>
+    </section>
+    <section id="validate-code" class="hidden none">
+        <figure class="validate-code-container">
+            <div class="close">
+                <p>X</p>
+            </div>
+            <h3 class="block-title">Ingresa el código que llegó a tu celular</h3>
+            <form>
+                <input type="tel" placeholder="Código" id="tel-code">
+                <button type="submit" class="validate-code-btn">Entrar</button>
             </form>
         </figure>
     </section>
     <footer>
         <p>Aquí no hay nada, solo un gatito :3</p>
     </footer>
-    
     <script src="script.js" type="module"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
