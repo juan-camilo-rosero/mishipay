@@ -29,8 +29,7 @@ export class StackArray {
     push(item) {
         if (this.full())
             throw new Error("Stack is full")
-        this.sarray[this.top] = item
-        this.top++
+        this.sarray[this.top++] = item;
     }
 }
 
@@ -44,21 +43,21 @@ export class StaticArray {
     }
 
     // Verifica si el arreglo está vacío
-    isEmpty() {
+    empty() {
         return this.length == 0
     }
 
     // Verifica si el arreglo está lleno
-    isFull() {
+    full() {
         return this.length == this.size
     }
 
     // Agrega un elemento al final del arreglo
     insert(item) {
-        if (this.isFull())
+        if (this.full())
             throw new Error("Array is full")
         this.array[this.length] = item
-        this.length++
+        this.length++ 
     }
 
     // Elimina el elemento en el índice especificado
@@ -83,5 +82,15 @@ export class StaticArray {
         if (index < 0 || index >= this.length)
             throw new Error("Index out of bounds")
         this.array[index] = item
+    }
+
+    // Intercambia los elementos en los índices especificados
+    swap(index1, index2) {
+        if (index1 < 0 || index1 >= this.length || index2 < 0 || index2 >= this.length)
+            throw new Error("Index out of bounds")
+
+        const temp = this.array[index1]
+        this.array[index1] = this.array[index2]
+        this.array[index2] = temp
     }
 }

@@ -5,10 +5,92 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel mishipay</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="assets/logo.png">
 </head>
-<body class="owo">
-    <h1 class="uwunt">Bienvenido al panel :3</h1>
-    <h2 class="userEmail"></h2>
+<body>
+    <header>
+        <div class="panel-header">
+            <img src="assets/logo.png" alt="Logo mishipay" class="header-logo">
+            <div class="profile-div"></div>
+        </div>
+    </header>
+    <section id="card-section">
+        <div class="credit-card">
+            <p class="credit-card-text">Balance actual:</p>
+            <p class="credit-card-money">$725.500</p>
+        </div>
+        <div class="credit-card-buttons">
+            <button class="pay-btn purple-btn">Realizar pago</button>
+            <button class="pay-list-btn gray-btn">Lista de pagos</button>
+        </div>
+    </section>
+    <section id="panel">
+        <div class="pay-list panel-div hidden none">
+            <div class="panel-div-close">
+                <p>X</p>
+            </div>
+
+            <div class="panel-content">
+                <h3 class="panel-title">uwu</h3>
+                <div class="panel-list-pays hidden none" data-title="Lista de pagos">
+                    <div class="pay-list-pay" data-tel="3002551485">
+                        <p class="pay-list-index">1.</p>
+                        <figure class="pay-list-item">
+                            <div class="pay-list-left">
+                                <div class="edit-pay"></div>
+                                <p class="pay-title">Arriendo local</p>
+                            </div>
+                            <p class="pay-amount" data-amount="800000">$800.000</p>
+                        </figure>
+                        <div class="arrows">
+                            <img src="assets/arrow.png" alt="Arriba" class="up-arrow opacity-medium" data-pay="0">
+                            <img src="assets/arrow.png" alt="Arriba" class="down-arrow" data-pay="0">
+                        </div>
+                    </div>
+                    <div class="pay-list-pay" data-tel="3165889452">
+                        <p class="pay-list-index">2.</p>
+                        <figure class="pay-list-item">
+                            <div class="pay-list-left">
+                                <div class="edit-pay"></div>
+                                <p class="pay-title">Inventario</p>
+                            </div>
+                            <p class="pay-amount" data-amount="1300000">$1'300.000</p>
+                        </figure>
+                        <div class="arrows">
+                            <img src="assets/arrow.png" alt="Arriba" class="up-arrow" data-pay="1">
+                            <img src="assets/arrow.png" alt="Arriba" class="down-arrow" data-pay="1">
+                        </div>
+                    </div>
+                    <div class="pay-list-pay" data-tel="3184556296">
+                        <p class="pay-list-index">3.</p>
+                        <figure class="pay-list-item">
+                            <div class="pay-list-left">
+                                <div class="edit-pay"></div>
+                                <p class="pay-title">Arreglos</p>
+                            </div>
+                            <p class="pay-amount" data-amount="200000">$200.000</p>
+                        </figure>
+                        <div class="arrows">
+                            <img src="assets/arrow.png" alt="Arriba" class="up-arrow" data-pay="2">
+                            <img src="assets/arrow.png" alt="Arriba" class="down-arrow opacity-medium" data-pay="2">
+                        </div>
+                    </div>
+                    <div class="panel-create-pay" data-title="Nuevo pago">
+                </div>
+
+                <button class="dark-gray-btn create-pay-btn">Nuevo pago</button>
+                <button class="purple-btn pay-eveything-btn">Pagar todo</button>
+                </div>
+                <div class="create-pay-section hidden none" data-title="Crear pago">
+                    <input type="text" id="create-pay-title" placeholder="Nombre del pago">
+                    <input type="tel" id="create-pay-tel" placeholder="Número del receptor">
+                    <input type="number" id="create-pay-amount" placeholder="$0.00" min="0" step="100">
+                    <button class="purple-btn create-pay">Crear pago</button>
+                    <button class="dark-gray-btn cancel-create-pay">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <script type="module" src="panel.js"></script>
 </body>

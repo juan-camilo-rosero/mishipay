@@ -14,3 +14,24 @@ export function changeScreen(screenToHide, screenToShow) {
         $screenToShow.classList.remove("hidden")
     }, 500);
 }
+
+export function appearDiv(div) {
+    const $div = d.querySelector(div)
+    $div.classList.remove("none")
+    setTimeout(() => $div.classList.remove("hidden"), 400);
+}
+
+export function dissappearDiv(div) {
+    const $div = d.querySelector(div)
+    $div.classList.add("hidden")
+    setTimeout(() => $div.classList.add("none"), 400);
+}
+
+export function changeTitle(title, section) {
+    const $section = d.querySelector(section),
+    $title = d.querySelector(title)
+
+    $title.classList.add("hidden")
+    $title.textContent = $section.getAttribute("data-title")
+    setTimeout(() => $title.classList.remove("hidden"), 300);
+}

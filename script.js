@@ -1,5 +1,6 @@
 import { login, signUp } from "./account.js";
 import { changeScreen } from "./transitions.js";
+import { testStack, testStaticArray, testing } from "./stack_testing.js";
 
 const d = document,
 ls = localStorage,
@@ -47,4 +48,6 @@ d.addEventListener("DOMContentLoaded", e => {
         changeScreen("main", "#login")
         //ls.removeItem("has-to-login")
     }
+
+    // testing()
 })
