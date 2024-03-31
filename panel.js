@@ -26,10 +26,10 @@ d.addEventListener("DOMContentLoaded", e => {
     $payListBtn.addEventListener("click", e => {
         appearDiv(".pay-list")
         appearDiv(".panel-list-pays")
-        createArray(".pay-list-pay") // La cantidad máxima de pagos en la lista será de 15
-        activateArrows(".up-arrow", ".down-arrow", ".pay-list-pay")
         changeTitle(".panel-title", ".panel-list-pays")
     })
+    createArray(".pay-list-pay") // La cantidad máxima de pagos en la lista será de 15
+    activateArrows(".up-arrow", ".down-arrow", ".pay-list-pay")
     
     $closePayListBtn.addEventListener("click", e => {
         dissappearDiv(".pay-list")

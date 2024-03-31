@@ -224,10 +224,6 @@ function generatePayDiv(index, data) {
 function activateLastUpArrow(arrow, i, pays) {
     const $arrow = d.querySelectorAll(arrow)[i]
 
-    console.log(arrow);
-    console.log(pays);
-    console.log(d.querySelectorAll(pays));
-
     $arrow.addEventListener("click", e => {
         const $pays = d.querySelectorAll(pays),
         $payTitles = d.querySelectorAll(`${pays} .pay-title`),
