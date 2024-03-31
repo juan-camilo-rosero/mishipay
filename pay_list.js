@@ -221,6 +221,36 @@ function generatePayDiv(index, data) {
     return div;
 }
 
+function activateLastUpArrow(arrow, i, pays) {
+    const $arrow = d.querySelectorAll(arrow)[i]
+
+    console.log(arrow);
+    console.log(pays);
+    console.log(d.querySelectorAll(pays));
+
+    $arrow.addEventListener("click", e => {
+        const $pays = d.querySelectorAll(pays),
+        $payTitles = d.querySelectorAll(`${pays} .pay-title`),
+        $payAmounts = d.querySelectorAll(`${pays} .pay-amount`),
+        payTels = Array.from(document.querySelectorAll(pays), el => el.getAttribute("data-tel"))
+            if (i !== 0){
+                array.swap(i, i-1)
+                let temp = $payTitles[i].textContent
+                $payTitles[i].textContent = $payTitles[i-1].textContent
+                $payTitles[i-1].textContent = temp
+
+                temp = $payAmounts[i].textContent
+                $payAmounts[i].textContent = $payAmounts[i-1].textContent
+                $payAmounts[i-1].textContent = temp
+
+                temp = payTels[i]
+                payTels[i] = payTels[i-1]
+                payTels[i-1] = temp
+                $pays[i].setAttribute("data-tel", payTels[i])
+                $pays[i-1].setAttribute("data-tel", payTels[i-1])
+            }
+    })
+}
 
 export function createPay(btn, title, tel, amount) {
     const $title = d.querySelector(title),
@@ -247,6 +277,7 @@ export function createPay(btn, title, tel, amount) {
         
         $parentDiv.insertBefore(generatePayDiv(array.length - 1, pay), $afterDiv)
         
+        activateLastUpArrow(".up-arrow", array.length - 1, ".pay-list-pay")
         dissappearDiv(".create-pay-section")
         appearDiv(".panel-list-pays")
     })
