@@ -171,7 +171,7 @@ main{
 
 header{
     width: 100vw;
-    height: 10vh;
+    height: 7.5vh;
     position: fixed;
     top: 0;
     display: flex;
@@ -405,14 +405,14 @@ footer p{
 /* ******************** Credit card ******************** */
 
 #card-section{
-    margin-top: 15vh;
-    height: 50vh;
+    margin-top: 10vh;
+    height: 45vh;
 }
 
 .credit-card{
     width: 80vw;
     max-width: 20rem;
-    height: 50vw;
+    height: 45vw;
     max-height: 12.5rem;
     background-color: var(--primary-color);
     border-radius: 1.5rem;
@@ -451,7 +451,7 @@ footer p{
 
 #panel{
     width: 100vw;
-    min-height: 35vh;
+    min-height: 45vh;
     background-color: var(--third-color);
     border-radius: 1.5rem 1.5rem 0 0;
 }
@@ -609,7 +609,7 @@ footer p{
 
 .history{
     width: 100vw;
-    height: calc(35vh - 3rem);
+    height: calc(45vh - 3rem);
     margin: 2rem 0 1rem 0;
     display: flex;
     flex-direction: column;
