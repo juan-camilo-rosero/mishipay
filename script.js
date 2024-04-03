@@ -32,7 +32,6 @@ d.addEventListener("DOMContentLoaded", e => {
 
     $signUpBtn.addEventListener("click", async e => {
         e.preventDefault()
-        changeScreen("#login", "#validate-code")
         signUp("#sign-up-email", "#sign-up-password", "#sign-up-name", "#sign-up-tel")
     })
 
@@ -40,7 +39,6 @@ d.addEventListener("DOMContentLoaded", e => {
 
     $loginBtn.addEventListener("click", e => {
         e.preventDefault()
-        changeScreen("#login", "#validate-code")
         login("#login-email", "#login-password")
     })
 

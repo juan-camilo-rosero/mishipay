@@ -248,33 +248,30 @@ function activateLastUpArrow(arrow, i, pays) {
     })
 }
 
-export function createPay(btn, title, tel, amount) {
+export function createPay(title, tel, amount) {
     const $title = d.querySelector(title),
     $tel = d.querySelector(tel),
-    $amount = d.querySelector(amount),
-    $btn = d.querySelector(btn)
+    $amount = d.querySelector(amount)
 
-    $btn.addEventListener("click", e => {
-        if(array.full()) return alert("El máximo de pagos en la lista es de 15")
+    if(array.full()) return alert("El máximo de pagos en la lista es de 15")
 
-        if(!validateCreatePayInputs($title.value, $tel.value, $amount.value)) return
+    if(!validateCreatePayInputs($title.value, $tel.value, $amount.value)) return false
 
-        const pay = {
-            title: $title.value,
-            amount: parseInt($amount.value),
-            tel: parseInt($tel.value)
-        }
-        array.insert(pay)
-        const $parentDiv = d.querySelector(".panel-list-pays"),
-        $afterDiv = d.querySelector(".panel-create-pay")
+    const pay = {
+        title: $title.value,
+        amount: parseInt($amount.value),
+        tel: parseInt($tel.value)
+    }
+    array.insert(pay)
+    const $parentDiv = d.querySelector(".panel-list-pays"),
+    $afterDiv = d.querySelector(".panel-create-pay")
 
-        const $lastArrow = d.querySelectorAll(".down-arrow")[array.length - 2]
-        $lastArrow.classList.remove("opacity-medium")
-        
-        $parentDiv.insertBefore(generatePayDiv(array.length - 1, pay), $afterDiv)
-        
-        activateLastUpArrow(".up-arrow", array.length - 1, ".pay-list-pay")
-        dissappearDiv(".create-pay-section")
-        appearDiv(".panel-list-pays")
-    })
+    const $lastArrow = d.querySelectorAll(".down-arrow")[array.length - 2]
+    $lastArrow.classList.remove("opacity-medium")
+    
+    $parentDiv.insertBefore(generatePayDiv(array.length - 1, pay), $afterDiv)
+    
+    activateLastUpArrow(".up-arrow", array.length - 1, ".pay-list-pay")
+
+    return true
 }
