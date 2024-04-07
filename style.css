@@ -207,7 +207,7 @@ header{
 }
 
 .panel-header{
-    width: 80vw;
+    width: 85vw;
     display: flex;
     height: 100%;
     align-items: center;
@@ -410,9 +410,9 @@ footer p{
 }
 
 .credit-card{
-    width: 80vw;
+    width: 60vw;
     max-width: 20rem;
-    height: 45vw;
+    height: 40vw;
     max-height: 12.5rem;
     background-color: var(--primary-color);
     border-radius: 1.5rem;
@@ -424,16 +424,16 @@ footer p{
 .credit-card-text{
     color: var(--secondary-color);
     opacity: .75;
-    font-size: .85rem;
-    margin-left: 2rem;
+    font-size: .7rem;
+    margin-left: 1.75rem;
     margin-bottom: .5rem;
     font-weight: 700;
 }
 
 .credit-card-money{
-    margin-left: 2rem;
+    margin-left: 1.75rem;
     color: var(--secondary-color);
-    font-size: 2.15rem;
+    font-size: 1.85rem;
     font-weight: 500;
 }
 
@@ -513,6 +513,7 @@ footer p{
 
 .pay-list{
     transition: .3s;
+    position: fixed !important;
 }
 
 .pay-list-pay{
@@ -615,6 +616,8 @@ footer p{
     flex-direction: column;
     align-items: center;
     overflow-y: scroll;
+    position: fixed !important;
+    transition: .3s;
 }
 
 .transactions{
@@ -747,16 +750,17 @@ footer p{
     /* ******************** Panel ******************** */
 
     #panel{
-        min-height: 45vh;
+        min-height: 50vh;
     }
 
     .panel-div{
-        height: calc(40vh - 2rem);
+        height: calc(45vh - 2rem);
         padding-top: 2rem;
     }
 
     .panel-div-close{
         margin-top: -7rem;
+        position: fixed;
     }
 
     /* ******************** Pay list ******************** */
@@ -792,6 +796,29 @@ footer p{
 
     .create-pay-section button{
         width: calc(50vw + 2rem);
+    }
+
+    /* ******************** History ******************** */
+
+    .history{
+        height: calc(50vh - 3rem);
+        padding-top: 3rem;
+    }
+
+    .transactions{
+        height: calc(55vh + 3rem);
+    }
+
+    .transaction{
+        width: calc(55vw - 2rem);
+    }
+
+    .transaction-info{
+        width: calc(30vw - 1rem);
+    }
+
+    .transaction-money{
+        width: calc(20vw - 4rem);
     }
 }
 
@@ -1009,6 +1036,7 @@ footer p{
     .credit-card{
         max-width: 25rem;
         max-height: 15rem;
+        margin-left: 4rem;
     }
 
     .credit-card-text{
@@ -1023,6 +1051,7 @@ footer p{
 
     .credit-card-buttons{
         width: 25rem;
+        margin-left: 4rem;
     }
 
     /* ******************** Panel ******************** */
@@ -1050,6 +1079,7 @@ footer p{
         display: flex;
         justify-content: center;
         align-items: center;
+        bottom: calc(4vh + 1.5rem);
     }
 
     .panel-div-close{
@@ -1128,5 +1158,35 @@ footer p{
         width: 23vw;
         margin-bottom: 1rem;
         padding: .5rem 1rem;
+    }
+
+    /* ******************** History ******************** */
+
+    .history{
+        width: 45vw;
+        height: 65vh;
+        background-color: var(--third-color);
+        position: static;
+        border-radius: 1.5rem;
+        padding-top: 4rem;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .transactions{
+        width: 40vw;
+    }
+
+    .transaction{
+        width: 30vw;
+    }
+
+    .transaction-info{
+        width: calc(20vw - 1rem);
+        margin-left: 1rem;
+    }
+
+    .transaction-money{
+        width: calc(10vw - 2rem);
     }
 }

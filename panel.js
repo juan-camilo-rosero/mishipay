@@ -25,6 +25,7 @@ d.addEventListener("DOMContentLoaded", e => {
     $payListBtn.addEventListener("click", e => {
         appearDiv(".pay-list")
         appearDiv(".panel-list-pays")
+        dissappearDiv(".history")
         changeTitle(".panel-title", ".panel-list-pays")
         $closePanelBtn.setAttribute("data-section", ".panel-list-pays")
     })
@@ -40,6 +41,7 @@ d.addEventListener("DOMContentLoaded", e => {
         if(section == relations[section]) return
         if (section == ".panel-list-pays") {
             dissappearDiv(".pay-list")
+            appearDiv(".history")
             return
         }
         dissappearDiv(section)
