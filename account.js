@@ -40,6 +40,44 @@ export async function createUser(email, password) {
     }
 }
 
+async function createUserInDB(email, tel, name) {
+  const newUser = {
+    email,
+    tel: parseInt(tel),
+    name,
+    money: 0
+  },
+  
+  url = `https://mishipay-api-rest.onrender.com/users`; // URL para conectar con la API REST
+
+  try {
+
+    // Petición a la API REST
+
+      const response = await fetch(url, {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(newUser),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+          // Si el usuario se crea exitosamente
+          return data;
+      } else {
+          // Hubo un error en la creación del usuario
+          alert("Error al crear el usuario");
+          return false;
+      }
+  } catch (error) {
+      console.error('Error de red:', error.message);
+      return false
+  }
+}
+
 // Función para validar los inputs si se intenta crear cuenta
 
 export function validateSignUp(email, password, name, tel) {
@@ -64,11 +102,12 @@ export async function signUp(email, password, name, tel) {
     // Validación de inputs
     
     if(!validateSignUp(emailValue, passwordValue, nameValue, telValue)) {
-        alert("Algún valor no es válido")
+        alert("Algún valor es inválido")
         return false
     }
 
     const user = await createUser(emailValue, passwordValue) // Crear cuenta
+    const userInDB = await createUserInDB(emailValue, telValue, nameValue)
 
     ls.setItem("id-token", user["idToken"]) // Guardar token para que se inicie sesión de forma automática
     location.href = "https://mishipay.vercel.app//panel.html" // Se redirige al panel

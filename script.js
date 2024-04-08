@@ -44,8 +44,5 @@ d.addEventListener("DOMContentLoaded", e => {
 
     if(ls.getItem["has-to-login"] == "true"){
         changeScreen("main", "#login")
-        //ls.removeItem("has-to-login")
     }
-
-    // testing()
 })

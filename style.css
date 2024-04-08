@@ -467,7 +467,7 @@ footer p{
     overflow-y: scroll;
 }
 
-.panel-div-close{
+.panel-div-close, .transaction-div-close{
     width: 4rem;
     height: 4rem;
     border-radius: 50%;
@@ -481,7 +481,7 @@ footer p{
     cursor: pointer;
 }
 
-.panel-div-close p{
+.panel-div-close p, .transaction-div-close p{
     font-size: 1.4rem;
     font-weight: 700;
     color: var(--primary-color);
@@ -500,9 +500,9 @@ footer p{
     align-items: center;
 }
 
-/* ******************** Pay list ******************** */
+/* ******************** Pay list / Transactions ******************** */
 
-.panel-list-pays, .create-pay-section{
+.panel-list-pays, .create-pay-section, .transaction-inputs{
     width: 100vw;
     margin-top: 3rem;
     display: flex;
@@ -511,7 +511,7 @@ footer p{
     transition: .3s;
 }
 
-.pay-list{
+.pay-list, .transaction-div{
     transition: .3s;
     position: fixed !important;
 }
@@ -582,7 +582,7 @@ footer p{
     margin-bottom: .5rem;
 }
 
-.create-pay-btn, .pay-eveything-btn{
+.create-pay-btn, .pay-eveything-btn, .transaction-btn{
     width: 85vw;
     padding: 1rem;
     font-weight: 600;
@@ -591,7 +591,7 @@ footer p{
 
 /* ******************** Create pay ******************** */
 
-.create-pay-section input{
+.create-pay-section input, .transaction-inputs input{
     width: calc(85vw - 2rem);
     padding: 1rem;
     font-size: 1.2rem;
@@ -758,7 +758,7 @@ footer p{
         padding-top: 2rem;
     }
 
-    .panel-div-close{
+    .panel-div-close, .transaction-div-close{
         margin-top: -7rem;
         position: fixed;
     }
@@ -783,13 +783,13 @@ footer p{
         font-size: .9rem;
     }
 
-    .create-pay-btn, .pay-eveything-btn{
+    .create-pay-btn, .pay-eveything-btn, .transaction-btn{
         width: 50vw;
     }
 
     /* ******************** Create pay ******************** */
 
-    .create-pay-section input{
+    .create-pay-section input, .transaction-inputs input{
         width: 50vw;
         margin-bottom: 2.5rem;
     }
@@ -1082,7 +1082,7 @@ footer p{
         bottom: calc(4vh + 1.5rem);
     }
 
-    .panel-div-close{
+    .panel-div-close, .transaction-div-close{
         margin-left: 2rem;
         margin-top: calc(-80vh - 2rem);
     }
@@ -1095,7 +1095,7 @@ footer p{
 
     /* ******************** Pay list ******************** */
 
-    .panel-list-pays, .create-pay-section{
+    .panel-list-pays, .create-pay-section, .transaction-inputs{
         width: 40vw;
     }
 
@@ -1136,18 +1136,18 @@ footer p{
         width: 2.5rem;
     }
 
-    .create-pay-btn{
+    .create-pay-btn, .transaction-btn{
         margin-bottom: 1rem;
     }
 
-    .create-pay-btn, .pay-eveything-btn{
+    .create-pay-btn, .pay-eveything-btn, .transaction-btn{
         width: 23vw;
         padding: .5rem 0;
     }
 
     /* ******************** Create pay ******************** */
 
-    .create-pay-section input{
+    .create-pay-section input, .transaction-inputs input{
         width: calc(23vw - 2rem);
         padding: .5rem 1rem;
         font-size: 1.2rem;

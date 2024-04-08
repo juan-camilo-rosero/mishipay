@@ -9,7 +9,9 @@ $payListBtn = d.querySelector(".pay-list-btn"),
 $closePanelBtn = d.querySelector(".pay-list .panel-div-close"),
 $createPayBtn = d.querySelector(".create-pay-btn"),
 $secondCreatePayBtn = d.querySelector(".create-pay"),
-$cancelCreatePayBtn = d.querySelector(".cancel-create-pay")
+$cancelCreatePayBtn = d.querySelector(".cancel-create-pay"),
+$newTransactionBtn = d.querySelector(".pay-btn"),
+$closeNewTransactionBtn = d.querySelector(".transaction-div-close")
 
 d.addEventListener("DOMContentLoaded", e => {
 
@@ -25,7 +27,7 @@ d.addEventListener("DOMContentLoaded", e => {
     $payListBtn.addEventListener("click", e => {
         appearDiv(".pay-list")
         appearDiv(".panel-list-pays")
-        dissappearDiv(".history")
+        dissappearDiv(".transaction-div")
         changeTitle(".panel-title", ".panel-list-pays")
         $closePanelBtn.setAttribute("data-section", ".panel-list-pays")
     })
@@ -41,7 +43,6 @@ d.addEventListener("DOMContentLoaded", e => {
         if(section == relations[section]) return
         if (section == ".panel-list-pays") {
             dissappearDiv(".pay-list")
-            appearDiv(".history")
             return
         }
         dissappearDiv(section)
@@ -74,6 +75,13 @@ d.addEventListener("DOMContentLoaded", e => {
         $closePanelBtn.setAttribute("data-section", ".panel-list-pays")
     })
 
+    $newTransactionBtn.addEventListener("click", e => {
+        appearDiv(".transaction-div")
+    })
+
+    $closeNewTransactionBtn.addEventListener("click", e => {
+        dissappearDiv(".transaction-div")
+    })
 
     /*Implementación de la pila*/
 
