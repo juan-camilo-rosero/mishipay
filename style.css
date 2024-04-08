@@ -215,10 +215,36 @@ header{
 }
 
 .profile-div{
-    width: 6rem;
     height: 60%;
     border-radius: 5rem;
-    border: var(--text-color) solid .1rem;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+.profile-photo{
+    height: 2.5rem;
+    width: 2.5rem;
+    background-color: var(--medium-gray);
+    border-radius: 50%;
+}
+
+.profile-info{
+    margin-right: 1rem;
+}
+
+.user-name{
+    font-size: .85rem;
+    font-weight: 600;
+    margin-bottom: .25rem;
+    text-align: right;
+}
+
+.profile-text{
+    font-size: .5rem;
+    text-align: right;
+    opacity: .6;
+    font-weight: 600;
 }
 
 /* ******************** Hero section ******************** */
@@ -859,6 +885,10 @@ footer p{
     }
 
     /* ******************** Header ******************** */
+
+    header{
+        height: 10vh;
+    }
 
     .header-logo{
         height: 60%;

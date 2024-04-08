@@ -1,6 +1,7 @@
-import { validateSessionIdToken } from "./account.js";
+import { getUserInfo, validateSessionIdToken } from "./account.js";
 import { StackArray } from "./data_structures.js";
 import { activateArrows, createArray, createPay } from "./pay_list.js";
+import { pay } from "./transactions.js";
 import { appearDiv, changeScreen, changeTitle, dissappearDiv } from "./transitions.js";
 
 const d = document,
@@ -11,18 +12,31 @@ $createPayBtn = d.querySelector(".create-pay-btn"),
 $secondCreatePayBtn = d.querySelector(".create-pay"),
 $cancelCreatePayBtn = d.querySelector(".cancel-create-pay"),
 $newTransactionBtn = d.querySelector(".pay-btn"),
-$closeNewTransactionBtn = d.querySelector(".transaction-div-close")
+$closeNewTransactionBtn = d.querySelector(".transaction-div-close"),
+$userName = d.querySelector(".user-name"),
+$userMoney = d.querySelector(".credit-card-money"),
+$payBtn = d.querySelector(".transaction-btn")
+
+let userInfo = {}
 
 d.addEventListener("DOMContentLoaded", e => {
 
     // Validar si existe un token guardado en el navegador. Si existe, se inicia sesión
 
-    /*const session = validateSessionIdToken(ls.getItem("id-token")).then(data => {
-        if(!data) {
-            ls.setItem("has-to-login", true) // Si no hay token, se pone en true para que al redirigirse a la landing page, ésta sepa que debe abrir el apartado de login
+    const session = validateSessionIdToken(ls.getItem("id-token")).then(async user => {
+        if(!user) {
             location.href = "https://mishipay.vercel.app/index.html" // Se redirige a la landing page
         }
-    })*/
+        const email = user.users[0].email,
+        info = await getUserInfo(email),
+        name = info.name,
+        money = info.money
+
+        $userName.textContent = name
+        $userMoney.textContent = '$' + money.toLocaleString()
+        userInfo = info
+    })
+
     
     $payListBtn.addEventListener("click", e => {
         appearDiv(".pay-list")
@@ -81,6 +95,16 @@ d.addEventListener("DOMContentLoaded", e => {
 
     $closeNewTransactionBtn.addEventListener("click", e => {
         dissappearDiv(".transaction-div")
+    })
+
+    $payBtn.addEventListener("click", async e =>{
+        await pay(userInfo, "#transaction-tel", "#transaction-amount")
+        let email = userInfo.email
+        userInfo = await getUserInfo(email)
+        $userMoney.textContent = '$' + userInfo.money.toLocaleString()
+        alert("Transacción exitosa")
+        dissappearDiv(".transaction-div")
+        appearDiv(".history")
     })
 
     /*Implementación de la pila*/

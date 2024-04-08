@@ -81,8 +81,20 @@ async function createUserInDB(email, tel, name) {
 // Función para validar los inputs si se intenta crear cuenta
 
 export function validateSignUp(email, password, name, tel) {
-    return true
+  // Expresión regular para validar el email
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  // Validar que el email sea válido, la contraseña tenga al menos 6 caracteres,
+  // el nombre tenga al menos 6 caracteres y el teléfono sea una cadena con algún número de teléfono
+  if (!emailRegex.test(email) || password.length < 6 || name.length < 4 || !(/^\d{10}$/.test(tel))) {
+      return false;
+  }
+
+  // Si todas las validaciones pasan, retornar true
+  return true;
 }
+
+
 
 // Función para validar los inputs si se intenta iniciar sesión
 
@@ -200,4 +212,67 @@ export async function validateSessionIdToken(idToken) {
       console.error("Error al validar la sesión:", error.message);
       return false;
     }
+}
+
+// Función para obtener la información de un usuario
+
+export async function getUserInfoTel(tel) {
+  
+  const url = `https://mishipay-api-rest.onrender.com/users-tel/${tel}`; // URL para conectar con la API REST
+
+  try {
+
+    // Petición a la API REST
+
+      const response = await fetch(url, {
+          method: 'GET',
+          headers: {
+              'Content-Type': 'application/json',
+          }
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+          // Si el usuario se crea exitosamente
+          return data;
+      } else {
+          // Hubo un error en la creación del usuario
+          alert("Error al obtener la información del usuario");
+          return false;
+      }
+  } catch (error) {
+      console.error('Error de red:', error.message);
+      return false
+  }
+}
+export async function getUserInfo(email) {
+  
+  const url = `https://mishipay-api-rest.onrender.com/users/${email}`; // URL para conectar con la API REST
+
+  try {
+
+    // Petición a la API REST
+
+      const response = await fetch(url, {
+          method: 'GET',
+          headers: {
+              'Content-Type': 'application/json',
+          }
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+          // Si el usuario se crea exitosamente
+          return data;
+      } else {
+          // Hubo un error en la creación del usuario
+          alert("Error al obtener la información del usuario");
+          return false;
+      }
+  } catch (error) {
+      console.error('Error de red:', error.message);
+      return false
+  }
 }

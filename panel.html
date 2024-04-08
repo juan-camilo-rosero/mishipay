@@ -11,13 +11,19 @@
     <header>
         <div class="panel-header">
             <img src="assets/logo.png" alt="Logo mishipay" class="header-logo">
-            <div class="profile-div"></div>
+            <div class="profile-div">
+                <div class="profile-info">
+                    <p class="user-name"></p>
+                    <p class="profile-text">Bienvenido de nuevo</p>
+                </div>
+                <figure class="profile-photo"></figure>
+            </div>
         </div>
     </header>
     <section id="card-section">
         <div class="credit-card">
             <p class="credit-card-text">Balance actual:</p>
-            <p class="credit-card-money">$725.500</p>
+            <p class="credit-card-money">$0.00</p>
         </div>
         <div class="credit-card-buttons">
             <button class="pay-btn purple-btn">Realizar pago</button>
@@ -134,7 +140,7 @@
             <div class="panel-content">
                 <h3 class="panel-title">Realizar pago</h3>
                 <div class="transaction-inputs" data-title="Lista de pagos">
-                    <input type="tel" id="transaction-title" placeholder="Número de teléfono">
+                    <input type="tel" id="transaction-tel" placeholder="Número de teléfono">
                     <input type="number" id="transaction-amount" placeholder="$0.00" min="0" step="100">
                     <button class="purple-btn transaction-btn">Crear pago</button>
                 </div>
