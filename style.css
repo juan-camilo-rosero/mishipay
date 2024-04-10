@@ -686,11 +686,17 @@ footer p{
     margin-bottom: .4rem;
 }
 
-.transaction-date, .transaction-amount{
+.transaction-date{
     font-size: .7rem;
 }
 
+.transaction-amount{
+    font-size: .9rem;
+    font-weight: 600;
+}
+
 .transaction-total, .transaction-amount{
+    font-family: sans-serif;
     text-align: right;
 }
 
@@ -1201,6 +1207,10 @@ footer p{
         padding-top: 4rem;
         justify-content: center;
         align-items: center;
+    }
+
+    .history-title{
+        padding-top: 4rem;
     }
 
     .transactions{

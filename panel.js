@@ -1,7 +1,7 @@
 import { getUserInfo, validateSessionIdToken } from "./account.js";
 import { StackArray } from "./data_structures.js";
 import { activateArrows, createArray, createPay } from "./pay_list.js";
-import { pay } from "./transactions.js";
+import { createTransactionsHTML, getTransaction, pay } from "./transactions.js";
 import { appearDiv, changeScreen, changeTitle, dissappearDiv } from "./transitions.js";
 
 const d = document,
@@ -35,6 +35,8 @@ d.addEventListener("DOMContentLoaded", e => {
         $userName.textContent = name
         $userMoney.textContent = '$' + money.toLocaleString()
         userInfo = info
+
+        createTransactionsHTML(userInfo.transactions, userInfo)
     })
 
     
