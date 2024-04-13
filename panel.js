@@ -2,7 +2,7 @@ import { getUserInfo, validateSessionIdToken } from "./account.js";
 import { StackArray } from "./data_structures.js";
 import { activateArrows, createArray, createPay } from "./pay_list.js";
 import { createTransactionsHTML, getTransaction, pay } from "./transactions.js";
-import { appearDiv, changeScreen, changeTitle, dissappearDiv } from "./transitions.js";
+import { appearDiv, changeScreen, changeTitle, closeAlert, dissappearDiv } from "./transitions.js";
 
 const d = document,
 ls = localStorage,
@@ -39,6 +39,9 @@ d.addEventListener("DOMContentLoaded", e => {
         createTransactionsHTML(userInfo.transactions, userInfo)
     })
 
+    // Generalidades
+
+    closeAlert()
     
     $payListBtn.addEventListener("click", e => {
         appearDiv(".pay-list")

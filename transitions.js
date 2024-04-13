@@ -35,3 +35,26 @@ export function changeTitle(title, section) {
     $title.textContent = $section.getAttribute("data-title")
     setTimeout(() => $title.classList.remove("hidden"), 300);
 }
+
+export function showError(msg) {
+    const $alert = d.querySelector(".alert"),
+    $closeAlert = d.querySelector(".close-alert"),
+    $msg = d.querySelector(".alert-text")
+
+    $alert.classList.add("error-alert")
+    $closeAlert.classList.add("red")
+    $msg.classList.add("red")
+    $msg.textContent = msg
+    $alert.classList.remove("none")
+    setTimeout(() => $alert.classList.remove("hidden"), 200);
+}
+
+export function closeAlert() {
+    const $close = d.querySelector(".close-alert"),
+    $alert = d.querySelector(".alert")
+
+    $close.addEventListener("click", e => {
+        $alert.classList.add("hidden")
+        setTimeout(() => $alert.classList.add("none"), 200);
+    })
+}

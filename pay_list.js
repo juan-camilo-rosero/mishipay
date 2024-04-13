@@ -1,5 +1,5 @@
 import { StaticArray } from "./data_structures.js";
-import { appearDiv, dissappearDiv } from "./transitions.js";
+import { showError } from "./transitions.js";
 
 const d = document
 
@@ -79,7 +79,7 @@ export function activateArrows(upArrows, downArrows, pays) {
 
 function validateCreatePayInputs(title, tel, amount) {
     if (!title || !tel || !amount) {
-        alert("Algún input está vacío o es inválido");
+        showError("Algún input está vacío o es inválido");
         return false; // Si alguno está vacío, retorna falso
     }
     
@@ -87,7 +87,7 @@ function validateCreatePayInputs(title, tel, amount) {
     tel = parseInt(tel);
     // Validar si la conversión fue exitosa
     if (isNaN(tel)) {
-        alert("El número de teléfono debe ser un número");
+        showError("El número de teléfono debe ser un número");
         return false; // Si la conversión falla, retorna falso
     }
     
@@ -95,25 +95,25 @@ function validateCreatePayInputs(title, tel, amount) {
     amount = parseInt(amount);
     // Validar si la conversión fue exitosa
     if (isNaN(amount)) {
-        alert("El monto debe ser un número");
+        showError("El monto debe ser un número");
         return false; // Si la conversión falla, retorna falso
     }
     
     // Validar teléfono
     if (!(/^\d{10}$/.test(tel))) {
-        alert("El número de teléfono debe tener 10 dígitos");
+        showError("El número de teléfono debe tener 10 dígitos");
         return false; // Si el teléfono no tiene 10 dígitos, retorna falso
     }
     
     // Validar título
     if (title.length < 3 || title.length > 15) {
-        alert("El nombre debe tener entre 3 y 15 caracteres");
+        showError("El nombre debe tener entre 3 y 15 caracteres");
         return false; // Si el título no tiene entre 3 y 15 caracteres, retorna falso
     }
     
     // Validar monto
     if (!Number.isInteger(amount) || amount <= 200 || amount >= 5000000) {
-        alert("El monto a enviar debe ser un número entre 200 y 5000000");
+        showError("El monto a enviar debe ser un número entre 200 y 5000000");
         return false; // Si el monto no es un entero mayor a 200 y menor a 5000000, retorna falso
     }
     
@@ -253,7 +253,7 @@ export function createPay(title, tel, amount) {
     $tel = d.querySelector(tel),
     $amount = d.querySelector(amount)
 
-    if(array.full()) return alert("El máximo de pagos en la lista es de 15")
+    if(array.full()) return showError("El máximo de pagos en la lista es de 15")
 
     if(!validateCreatePayInputs($title.value, $tel.value, $amount.value)) return false
 

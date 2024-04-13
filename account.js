@@ -1,4 +1,5 @@
 import apiKeys from "./api_keys.js"
+import { showError } from "./transitions.js";
 
 const d = document,
 ls = localStorage
@@ -31,7 +32,7 @@ export async function createUser(email, password) {
             return data;
         } else {
             // Hubo un error en la creación del usuario
-            alert("Error al crear el usuario");
+            showError("Error al crear el usuario");
             return false;
         }
     } catch (error) {
@@ -69,7 +70,7 @@ async function createUserInDB(email, tel, name) {
           return data;
       } else {
           // Hubo un error en la creación del usuario
-          alert("Error al crear el usuario");
+          showError("Error al crear el usuario");
           return false;
       }
   } catch (error) {
@@ -84,16 +85,44 @@ export function validateSignUp(email, password, name, tel) {
   // Expresión regular para validar el email
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  // Validar que el email sea válido, la contraseña tenga al menos 6 caracteres,
-  // el nombre tenga al menos 6 caracteres y el teléfono sea una cadena con algún número de teléfono
-  if (!emailRegex.test(email) || password.length < 6 || name.length < 4 || !(/^\d{10}$/.test(tel))) {
-      return false;
+  // Validar que el email sea válido
+  if (!emailRegex.test(email)) {
+      return {
+          message: "El correo ingresado es inválido.",
+          isValid: false
+      };
+  }
+
+  // Validar la longitud de la contraseña
+  if (password.length < 6 || password.length > 16) {
+      return {
+          message: "La contraseña debe tener entre 6 y 16 caracteres.",
+          isValid: false
+      };
+  }
+
+  // Validar la longitud del nombre
+  if (name.length < 4 || name.length > 25) {
+      return {
+          message: "El nombre debe tener entre 4 y 25 caracteres.",
+          isValid: false
+      };
+  }
+
+  // Validar el formato del teléfono
+  if (!(/^\d{10}$/.test(tel))) {
+      return {
+          message: "El teléfono ingresado no es válido.",
+          isValid: false
+      };
   }
 
   // Si todas las validaciones pasan, retornar true
-  return true;
+  return {
+      message: "",
+      isValid: true
+  };
 }
-
 
 
 // Función para validar los inputs si se intenta iniciar sesión
@@ -113,8 +142,10 @@ export async function signUp(email, password, name, tel) {
 
     // Validación de inputs
     
-    if(!validateSignUp(emailValue, passwordValue, nameValue, telValue)) {
-        alert("Algún valor es inválido")
+    const validation = validateSignUp(emailValue, passwordValue, nameValue, telValue)
+    if(!validation.isValid) {
+        console.log(validation)
+        showError(validation.message)
         return false
     }
 
@@ -169,7 +200,7 @@ export async function login(email, password) {
     // Validar inputs
 
     if(!validateLogin(emailValue, passwordValue)) {
-        alert("Algún valor no es válido")
+        showError("Algún valor no es válido")
         return false
     }
 
@@ -177,7 +208,7 @@ export async function login(email, password) {
 
     if(!res){
         // Si el inicio de sesión es inválido
-        alert("Usuario o contraseña inválidos")
+        showError("Usuario o contraseña inválidos")
     }
     else{
         // Si el inicio de sesión es exitoso
@@ -238,7 +269,7 @@ export async function getUserInfoTel(tel) {
           return data;
       } else {
           // Hubo un error en la creación del usuario
-          alert("Error al obtener la información del usuario");
+          showError("Error al obtener la información del usuario");
           return false;
       }
   } catch (error) {
@@ -268,7 +299,7 @@ export async function getUserInfo(email) {
           return data;
       } else {
           // Hubo un error en la creación del usuario
-          alert("Error al obtener la información del usuario");
+          showError("Error al obtener la información del usuario");
           return false;
       }
   } catch (error) {

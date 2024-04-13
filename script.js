@@ -1,5 +1,5 @@
 import { login, signUp } from "./account.js";
-import { changeScreen } from "./transitions.js";
+import { changeScreen, closeAlert } from "./transitions.js";
 import { testStack, testStaticArray, testing } from "./stack_testing.js";
 
 const d = document,
@@ -19,8 +19,12 @@ $loginBtn = d.querySelector(".login-btn")
 
 d.addEventListener("DOMContentLoaded", e => {
 
-    // Transiciones
+    // Generalidades
+    
+    closeAlert()
 
+    // Transiciones
+    
     $signUpHS.addEventListener("click", e => changeScreen("main", "#sign-up"))
     $closeSignUp.addEventListener("click", e => changeScreen("#sign-up", "main"))
     $LoginHS.addEventListener("click", e => changeScreen("main", "#login"))
@@ -32,14 +36,18 @@ d.addEventListener("DOMContentLoaded", e => {
 
     $signUpBtn.addEventListener("click", async e => {
         e.preventDefault()
-        signUp("#sign-up-email", "#sign-up-password", "#sign-up-name", "#sign-up-tel")
+        $signUpBtn.setAttribute("disabled", "disabled")
+        await signUp("#sign-up-email", "#sign-up-password", "#sign-up-name", "#sign-up-tel")
+        $signUpBtn.removeAttribute("disabled")
     })
 
     // Iniciar sesión
 
-    $loginBtn.addEventListener("click", e => {
+    $loginBtn.addEventListener("click", async e => {
         e.preventDefault()
-        login("#login-email", "#login-password")
+        $loginBtn.setAttribute("disabled", "disabled")
+        await login("#login-email", "#login-password")
+        $loginBtn.removeAttribute("disabled")
     })
 
     if(ls.getItem["has-to-login"] == "true"){

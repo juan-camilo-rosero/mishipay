@@ -1,5 +1,6 @@
 import { getUserInfoTel } from "./account.js";
 import { StackArray } from "./data_structures.js";
+import { showError } from "./transitions.js";
 
 const d = document,
 transationsStack = new StackArray(50)
@@ -34,7 +35,7 @@ export async function createTransaction(sender_tel, reciever_tel, sender_name, r
             return data;
         } else {
             // Hubo un error en la creación del usuario
-            alert("Error al hacer la transacción");
+            showError("Error al hacer la transacción");
             return data;
         }
     } catch (error) {
@@ -71,11 +72,11 @@ export async function pay(user, tel, amount) {
         amountValue = parseInt(d.querySelector(amount).value),
         otherUser = await getUserInfoTel(telValue)
     
-        if(tel === user.tel) return alert("No te puedes enviar dinero a ti mismo")
+        if(tel === user.tel) return showError("No te puedes enviar dinero a ti mismo")
         const transaction = await createTransaction(user.tel, telValue, user.name, otherUser.name, amountValue, getCurrentDateTimeString())
         d.querySelector(".transactions").insertAdjacentHTML('afterbegin', createTransactionHTML(transaction, user));
     } catch (err) {
-        alert("No se pudo realizar la transacción")
+        showError("No se pudo realizar la transacción")
     }
 }
 
@@ -138,7 +139,7 @@ export async function getTransaction(id) {
           return data;
       } else {
           // Hubo un error al obtener la transacción
-          alert("Error al obtener la transacción");
+          showError("Error al obtener la transacción");
           return false;
       }
   } catch (error) {
