@@ -35,7 +35,7 @@ export async function createTransaction(sender_tel, reciever_tel, sender_name, r
             return data;
         } else {
             // Hubo un error en la creación del usuario
-            showError("Error al hacer la transacción");
+            showError("Error: " + data.detail);
             return data;
         }
     } catch (error) {
@@ -67,16 +67,22 @@ function getCurrentDateTimeString() {
 
 export async function pay(user, tel, amount) {
     const $userMoney = d.querySelector(".credit-card-money")
+    let transaction = false
     try {
         const telValue = parseInt(d.querySelector(tel).value),
         amountValue = parseInt(d.querySelector(amount).value),
         otherUser = await getUserInfoTel(telValue)
     
-        if(tel === user.tel) return showError("No te puedes enviar dinero a ti mismo")
-        const transaction = await createTransaction(user.tel, telValue, user.name, otherUser.name, amountValue, getCurrentDateTimeString())
+        if(telValue === user.tel) {
+            transaction = {ok: false}
+            throw new Error("No te puedes enviar dinero a ti mismo")
+        }
+        transaction = await createTransaction(user.tel, telValue, user.name, otherUser.name, amountValue, getCurrentDateTimeString())
         d.querySelector(".transactions").insertAdjacentHTML('afterbegin', createTransactionHTML(transaction, user));
+        return transaction
     } catch (err) {
-        showError("No se pudo realizar la transacción")
+        showError("Error: " + err.message)
+        return transaction
     }
 }
 
@@ -94,13 +100,10 @@ function createTransactionHTML(transaction, user) {
 
     const isCurrentUserSender = sender_tel === currentUserTel;
     const isCurrentUserReciever = reciever_tel === currentUserTel;
-    console.log(isCurrentUserSender);
 
     const transactionClass = isCurrentUserSender ? 'red' : 'green';
     const transactionSign = isCurrentUserSender ? '-' : '+';
     const transactionName = isCurrentUserSender ? reciever_name : sender_name;
-
-    console.log(transactionName);
 
     const html = `
         <figure class="transaction">

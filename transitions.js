@@ -41,9 +41,28 @@ export function showError(msg) {
     $closeAlert = d.querySelector(".close-alert"),
     $msg = d.querySelector(".alert-text")
 
+    $alert.classList.remove("success-alert")
     $alert.classList.add("error-alert")
+    $closeAlert.classList.remove("green")
+    $msg.classList.remove("green")
     $closeAlert.classList.add("red")
     $msg.classList.add("red")
+    $msg.textContent = msg
+    $alert.classList.remove("none")
+    setTimeout(() => $alert.classList.remove("hidden"), 200);
+}
+
+export function showSuccess(msg) {
+    const $alert = d.querySelector(".alert"),
+    $closeAlert = d.querySelector(".close-alert"),
+    $msg = d.querySelector(".alert-text")
+
+    $alert.classList.add("success-alert")
+    $alert.classList.remove("error-alert")
+    $closeAlert.classList.add("green")
+    $msg.classList.add("green")
+    $closeAlert.classList.remove("red")
+    $msg.classList.remove("red")
     $msg.textContent = msg
     $alert.classList.remove("none")
     setTimeout(() => $alert.classList.remove("hidden"), 200);

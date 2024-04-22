@@ -307,3 +307,73 @@ export async function getUserInfo(email) {
       return false
   }
 }
+
+// Funciones para eliminar usuario
+
+export async function deleteUserInDB(email) {
+  email = encodeURIComponent(email)
+  console.log(email);
+  const url = `https://mishipay-api-rest.onrender.com/users/${email}`; // URL para conectar con la API REST
+
+  try {
+
+    // Petición a la API REST
+
+    const response = await fetch(url, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+        // Si el usuario se crea exitosamente
+        return data;
+    } else {
+        // Hubo un error en la creación del usuario
+        showError("Error: " + data.detail);
+        return data;
+      }
+  } catch (error) {
+    console.error('Error de red:', error.message);
+    return false
+  }
+}
+
+export async function deleteUser(email, idToken) {
+  // URL de la API REST de Firebase para eliminar un usuario
+  const url = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/deleteAccount?key=${apiKeys.firebase}`;
+
+  // Prepara los datos para enviar a la API REST de Firebase
+  const data = {
+      idToken: idToken,
+      email: email
+  };
+
+  try {
+      // Realiza la solicitud HTTP DELETE a la API REST de Firebase
+      const response = await fetch(url, {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+          // Si hay un error, arroja un error con el mensaje correspondiente
+          const errorData = await response.json();
+          throw new Error(errorData.error.message);
+      }
+
+      // Respuesta exitosa
+      const result = await response.json();
+      console.log('Usuario eliminado:', result);
+      return result;
+  } catch (error) {
+      console.error('Error eliminando el usuario:', error);
+      throw error;
+  }
+}

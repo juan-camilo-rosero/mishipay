@@ -12,6 +12,7 @@
     --green: #20B808;
     --dark-green: #0c5800;
     --red: #FF0000;
+    --red-darker: #e40303;
 }
 
 /* ******************** Reset CSS ******************** */
@@ -101,7 +102,7 @@ input{
     background-color: var(--red);
 }
 
-.purple-btn, .gray-btn, .dark-gray-btn{
+.purple-btn, .gray-btn, .dark-gray-btn, .red-btn{
     padding: .75rem 1rem;
     border-radius: .5rem;
     border: none;
@@ -112,6 +113,11 @@ input{
 
 .purple-btn{
     background-color: var(--primary-color);
+    color: var(--secondary-color);
+}
+
+.red-btn{
+    background-color: var(--red);
     color: var(--secondary-color);
 }
 
@@ -137,6 +143,9 @@ input{
     background-color: var(--medium-gray);
 }
 
+.red-btn:hover{
+    background-color: var(--red-darker);
+}
 
 .opacity-medium{
     opacity: .5;
@@ -205,6 +214,10 @@ main{
     border: var(--red) solid .2rem;
 }
 
+.success-alert{
+    border: var(--dark-green) solid .2rem;
+}
+
 /* ******************** Header ******************** */
 
 header{
@@ -254,10 +267,38 @@ header{
 
 .profile-div{
     height: 60%;
-    border-radius: 5rem;
+    border-radius: .5rem;
     display: flex;
     justify-content: end;
     align-items: center;
+    cursor: pointer;
+    padding: .5rem 1rem;
+    transition: .2s;
+}
+
+.profile-options{
+    position: fixed;
+    width: 100vw;
+    min-height: 20vh;
+    background-color: var(--light-gray);
+    border-radius: 0 0 1rem 1rem;
+    top: 7.5vh;
+    z-index: 120;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 0;
+    transition: .3s;
+}
+
+.profile-options button{
+    width: 60vw;
+    margin: 1rem 0;
+    font-size: 1rem;
+}
+
+.profile-div:hover{
+    background-color: var(--third-color);
 }
 
 .profile-photo{
@@ -265,6 +306,8 @@ header{
     width: 2.5rem;
     background-color: var(--medium-gray);
     border-radius: 50%;
+    background-image: url("https://i.pinimg.com/564x/f1/39/63/f13963c024d3b1e8fe55d78b0654b985.jpg");
+    background-size: cover;
 }
 
 .profile-info{
@@ -991,6 +1034,27 @@ footer p{
         background-color: var(--primary-color-darker);
     }
 
+    .profile-options{
+        position: fixed;
+        width: 25vw;
+        min-height: 20vh;
+        background-color: var(--light-gray);
+        right: 7.5vw;
+        top: 10vh;
+        z-index: 120;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 1rem 0;
+        transition: .2s;
+    }
+    
+    .profile-options button{
+        width: 20vw;
+        margin: 1rem 0;
+        font-size: 1rem;
+    }
+
     /* ******************** Hero section ******************** */
 
     #hero-section{
@@ -1171,7 +1235,7 @@ footer p{
         display: flex;
         justify-content: center;
         align-items: center;
-        bottom: calc(4vh + 1.5rem);
+        bottom: calc(4vh + .8rem);
     }
 
     .panel-div-close, .transaction-div-close{

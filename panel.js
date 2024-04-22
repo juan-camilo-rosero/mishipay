@@ -1,8 +1,8 @@
-import { getUserInfo, validateSessionIdToken } from "./account.js";
+import { deleteUser, deleteUserInDB, getUserInfo, validateSessionIdToken } from "./account.js";
 import { StackArray } from "./data_structures.js";
 import { activateArrows, createArray, createPay } from "./pay_list.js";
 import { createTransactionsHTML, getTransaction, pay } from "./transactions.js";
-import { appearDiv, changeScreen, changeTitle, closeAlert, dissappearDiv } from "./transitions.js";
+import { appearDiv, changeScreen, changeTitle, closeAlert, dissappearDiv, showError, showSuccess } from "./transitions.js";
 
 const d = document,
 ls = localStorage,
@@ -15,15 +15,20 @@ $newTransactionBtn = d.querySelector(".pay-btn"),
 $closeNewTransactionBtn = d.querySelector(".transaction-div-close"),
 $userName = d.querySelector(".user-name"),
 $userMoney = d.querySelector(".credit-card-money"),
-$payBtn = d.querySelector(".transaction-btn")
+$payBtn = d.querySelector(".transaction-btn"),
+$profile = d.querySelector(".profile-div"),
+$logoutBtn = d.querySelector(".logout"),
+$deleteAccount = d.querySelector(".delete-account")
 
-let userInfo = {}
+let userInfo = {},
+profileOpen = false
 
 d.addEventListener("DOMContentLoaded", e => {
 
     // Validar si existe un token guardado en el navegador. Si existe, se inicia sesión
 
-    const session = validateSessionIdToken(ls.getItem("id-token")).then(async user => {
+    const idToken = ls.getItem("id-token"),
+    session = validateSessionIdToken(idToken).then(async user => {
         if(!user) {
             location.href = "https://mishipay.vercel.app/index.html" // Se redirige a la landing page
         }
@@ -31,13 +36,12 @@ d.addEventListener("DOMContentLoaded", e => {
         info = await getUserInfo(email),
         name = info.name,
         money = info.money
-
         $userName.textContent = name
         $userMoney.textContent = '$' + money.toLocaleString()
         userInfo = info
-
         createTransactionsHTML(userInfo.transactions, userInfo)
     })
+    
 
     // Generalidades
 
@@ -103,13 +107,40 @@ d.addEventListener("DOMContentLoaded", e => {
     })
 
     $payBtn.addEventListener("click", async e =>{
-        await pay(userInfo, "#transaction-tel", "#transaction-amount")
+        const res = await pay(userInfo, "#transaction-tel", "#transaction-amount")
+        console.log(res);
+        if(!res.ok) return
         let email = userInfo.email
         userInfo = await getUserInfo(email)
         $userMoney.textContent = '$' + userInfo.money.toLocaleString()
-        alert("Transacción exitosa")
+        showSuccess("Transacción exitosa")
         dissappearDiv(".transaction-div")
         appearDiv(".history")
+    })
+
+    $profile.addEventListener("click", e => {
+        if(profileOpen){
+            dissappearDiv(".profile-options")
+            profileOpen = false
+        } else{
+            appearDiv(".profile-options")
+            profileOpen = true
+        }
+    })
+
+    $logoutBtn.addEventListener("click", e => {
+        ls.removeItem("id-token")
+        location.href = "https://mishipay.vercel.app/"
+    })
+
+    $deleteAccount.addEventListener("click", async e => {
+        const email = userInfo.email
+        if(confirm("Desea eliminar el usuario con el email " + email + "?")){
+            await deleteUser(email, idToken)
+            await deleteUserInDB(email)
+            ls.removeItem("id-token")
+            location.href = "https://mishipay.vercel.app/"
+        }
     })
 
     /*Implementación de la pila*/
