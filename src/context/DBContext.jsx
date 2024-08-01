@@ -135,9 +135,13 @@ const newTransaction = async (sender, receiver, amount, money, name, tel, email)
       money: receiverData.money + amount
     });
 
+    alert("El dinero fue enviado con éxito")
+    return true
+
   } catch (error) {
     console.error("Error en la transacción:", error);
     alert("Error en la transacción. Por favor, intenta de nuevo.");
+    return false
   }
 };
 

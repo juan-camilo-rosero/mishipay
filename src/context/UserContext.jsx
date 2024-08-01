@@ -7,7 +7,7 @@ export function UserContextProvider(props) {
     const [money, setMoney] = useState(40000)
     const [history, setHistory] = useState([])
     const [number, setNumber] = useState(null)
-    const [name, setName] = useState("David Herrera")
+    const [name, setName] = useState("")
     const [email, setEmail] = useState("")
 
     return (
