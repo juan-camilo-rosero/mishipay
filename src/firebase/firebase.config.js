@@ -7,9 +7,13 @@ const firebaseApiKey = import.meta.env.VITE_FIREBASE_API_KEY
 const firebaseConfig = {
   apiKey: firebaseApiKey,
   authDomain: "mishipayuwu.firebaseapp.com",
+
   projectId: "mishipayuwu",
+
   storageBucket: "mishipayuwu.appspot.com",
-  messagingSenderId: "512700283845",
+
+  messagingSenderId: "993151501205",
+
   appId: "1:512700283845:web:debc82dc76ec69dfc4e9ac"
 };
 

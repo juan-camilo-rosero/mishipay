@@ -9,34 +9,39 @@ import Send from '../components/Send';
 import Balance from '../components/Balance';
 import { UserContext } from '../context/UserContext';
 import { DBContext } from '../context/DBContext';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 function Panel() {
   const navigate = useNavigate();
 
   const { section, setSection } = useContext(SectionContext);
-  const { money, setMoney, number, setHistory } = useContext(UserContext);
+  const { money, setMoney, email, setEmail, setHistory } = useContext(UserContext);
   const { getUser } = useContext(DBContext);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const loadUser = async () => {
-      try {
-        const user = await getUser(number);
-        console.log(user);
-        setMoney(user.money)
-        setLoading(false);
-      } catch (err) {
-        console.error(err);
-        navigate("/signup")
+    const auth = getAuth();
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setEmail(user.email);
+        const loadUser = async () => {
+          try {
+            const userData = await getUser(user.email);
+            setMoney(userData.money);
+            setLoading(false);
+          } catch (err) {
+            console.error(err);
+            navigate("/signup");
+          }
+        };
+        loadUser();
+      } else {
+        navigate("/signup");
       }
-    };
+    });
 
-    if (number) {
-      loadUser();
-    } else {
-      navigate("/signup");
-    }
-  }, [getUser, number, navigate]);
+    return () => unsubscribe();
+  }, [getUser, setEmail, setMoney, navigate]);
 
   let selectedSection = <History />;
   let desktopSelectedSection = <Send />;

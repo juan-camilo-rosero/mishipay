@@ -7,12 +7,12 @@ function Send() {
   const [tel, setTel] = useState(undefined)
 
   const {newTransaction} = useContext(DBContext)
-  const {number, name} = useContext(UserContext)
+  const {number, name, money, email} = useContext(UserContext)
 
   const handleSend = async e => {
     e.preventDefault();
 
-    await newTransaction(number, tel, amount, name);
+    await newTransaction(number, tel, amount, money, name, tel, email);
 }
 
   const parseCurrencyToInt = (currencyString) => {

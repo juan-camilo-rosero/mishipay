@@ -8,6 +8,7 @@ export function UserContextProvider(props) {
     const [history, setHistory] = useState([])
     const [number, setNumber] = useState(null)
     const [name, setName] = useState("David Herrera")
+    const [email, setEmail] = useState("")
 
     return (
         <UserContext.Provider value={{
@@ -18,7 +19,9 @@ export function UserContextProvider(props) {
             number,
             setNumber,
             name,
-            setName
+            setName,
+            email,
+            setEmail
         }}>
             {props.children}
         </UserContext.Provider>
