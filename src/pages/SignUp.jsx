@@ -12,27 +12,33 @@ function SignUp() {
   const [tel, setTel] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async e => {
     e.preventDefault();
 
+    setLoading(true)
+    
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
       console.log("Usuario registrado:", user);
-
+      
       let userInfo = await getDocumentIfExists("users", tel);
       if (!userInfo) {
         userInfo = await createUser(tel, email, name); // Modificar la función createUser para aceptar nombre también.
       }
-
+      
       const transactionsInfo = await getTransactions(userInfo.transactions);
       setEmail(email);
       setHistory(transactionsInfo);
       navigate("/panel");
     } catch (error) {
       console.error("Error registrando usuario:", error);
+    }
+    finally{
+      setLoading(false)
     }
   };
 
@@ -77,9 +83,10 @@ function SignUp() {
             required
           />
           <button 
+            disabled={loading}
             type="submit" 
-            className="w-full rounded-lg bg-primary text-secondary py-2 text-xl font-semibold transition-all focus:border-opacity-100 mt-6">
-            Empezar ahora
+            className={`w-full rounded-lg bg-primary text-secondary py-2 text-xl font-semibold transition-all focus:border-opacity-100 mt-6 ${(loading) ? "opacity-50 cursor-default" : "opacity-100 cursor-pointer"}`}>
+            {(loading) ? "Cargando..." : "Empezar ahora"}
           </button>
           <Link to="/login" className='text-primary underline text-center text-xl mt-2 lg:mt-3'>¿Ya tienes cuenta?</Link>
         </form>

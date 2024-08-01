@@ -15,7 +15,7 @@ function Panel() {
   const navigate = useNavigate();
 
   const { section, setSection } = useContext(SectionContext);
-  const { money, setMoney, email, setEmail, setHistory } = useContext(UserContext);
+  const { money, setMoney, email, setEmail, setHistory, setName } = useContext(UserContext);
   const { getUser } = useContext(DBContext);
   const [loading, setLoading] = useState(true);
 
@@ -29,6 +29,7 @@ function Panel() {
             const userData = await getUser(user.email);
             setMoney(userData.money);
             setLoading(false);
+            setName(userData.name)
           } catch (err) {
             console.error(err);
             navigate("/signup");
