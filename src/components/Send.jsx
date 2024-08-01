@@ -5,14 +5,22 @@ import { UserContext } from "../context/UserContext";
 function Send() {
   const [amount, setAmount] = useState(undefined)
   const [tel, setTel] = useState(undefined)
+  const [loading, setLoading] = useState(false)
 
   const {newTransaction} = useContext(DBContext)
-  const {number, name, money, email} = useContext(UserContext)
+  const {number, name, money, email, setMoney} = useContext(UserContext)
 
   const handleSend = async e => {
     e.preventDefault();
-
-    await newTransaction(number, tel, amount, money, name, tel, email);
+    setLoading(true)
+    
+    const res = await newTransaction(number, tel, amount, money, name, tel, email);
+    if(res){
+      setMoney(money - amount)
+      setAmount("")
+      setTel("")
+    }
+    setLoading(false)
 }
 
   const parseCurrencyToInt = (currencyString) => {
@@ -76,7 +84,7 @@ function Send() {
         }}
       />
 
-        <button type="submit" className="w-full rounded-lg bg-primary text-secondary py-2 text-xl lg:text-lg font-semibold transition-all focus:border-opacity-100">Enviar</button>
+        <button type="submit" className={`w-full rounded-lg bg-primary text-secondary py-2 text-xl lg:text-lg font-semibold transition-all focus:border-opacity-100 ${(loading) ? "opacity-50 cursor-default" : "opacity-100 cursor-pointer"}`}>{(loading) ? "Enviando..." : "Enviar"}</button>
       </form>
     </div>
   )

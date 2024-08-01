@@ -5,6 +5,8 @@ function HistoryRegister(props) {
   const { senderName, receiverName, date, money } = props;
   const { name } = useContext(UserContext);
   const isSender = (senderName === name);
+  console.log(senderName);
+  console.log(name);
   const registerName = (isSender) ? receiverName : senderName;
 
   const formattedDate = new Date(date).toLocaleDateString('es-ES', {
