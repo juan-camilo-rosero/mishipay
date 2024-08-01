@@ -1,22 +1,34 @@
 import { useNavigate, Link } from 'react-router-dom';
 import { useContext, useState } from 'react';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase/firebase.config';
 import { DBContext } from '../context/DBContext';
 import { UserContext } from '../context/UserContext';
 
 function SignUp() {
-  const { getDocumentIfExists, createUser, getTransactions } = useContext(DBContext)
+  const { getDocumentIfExists, getTransactions } = useContext(DBContext)
   const { setEmail, setHistory } = useContext(UserContext)
   const [email, setUserEmail] = useState("");
-  const [tel, setTel] = useState("");
   const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
+  const [loading, setLoading] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async e => {
     e.preventDefault();
+    setLoading(true)
     console.log("Iniciando sesión uwu");
+    try {
+      const res = await signInWithEmailAndPassword(auth, email, password)
+      console.log(res);
+      setEmail(res.user.email)
+      const userInfo = await getDocumentIfExists("users", email)
+      const transactionsInfo = await getTransactions(userInfo.transactions);
+      setHistory(transactionsInfo);
+      navigate("/panel");
+    } catch (error) {
+      alert("Correo o contraseña inválidos")
+    }
+    setLoading(false)
   };
 
   return (
@@ -45,8 +57,8 @@ function SignUp() {
           />
           <button 
             type="submit" 
-            className="w-full rounded-lg bg-primary text-secondary py-2 text-xl font-semibold transition-all focus:border-opacity-100 mt-6">
-            Iniciar sesión
+            className={`w-full rounded-lg bg-primary text-secondary py-2 text-xl font-semibold transition-all focus:border-opacity-100 mt-6 ${(loading) ? "opacity-50 cursor-default" : "opacity-100 cursor-pointer"}`}>
+            {(loading) ? "Cargando..." : "Iniciar sesión"}
           </button>
           <Link to="/signup" className='text-primary underline text-center text-xl mt-2 lg:mt-3'>¿No tienes cuenta?</Link>
         </form>
