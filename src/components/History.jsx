@@ -14,7 +14,7 @@ const loadHistory = async (email, setHistory, getDocumentIfExists, getTransactio
     }
   } catch (error) {
     console.error("Error loading history:", error);
-    setHistory([]); // Set empty history in case of error
+    setHistory([]);
   }
 };
 
