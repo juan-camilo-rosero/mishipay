@@ -123,27 +123,36 @@ const newTransaction = async (sender, receiver, amount, money, name, tel, email)
 
     // Actualizar el documento del usuario que envía el dinero
     const senderRef = doc(db, "users", email);
+    const senderSnap = await getDoc(senderRef);
+    const senderData = senderSnap.data();
+
+    const updatedSenderTransactions = [transactionId, ...senderData.transactions];
     await updateDoc(senderRef, {
-      transactions: arrayUnion(transactionId),
+      transactions: updatedSenderTransactions,
       money: money - amount
     });
 
     // Actualizar el documento del usuario que recibe el dinero
     const receiverRef = doc(db, "users", receiverData.id);
+    const receiverSnap = await getDoc(receiverRef);
+    const receiverDocData = receiverSnap.data();
+
+    const updatedReceiverTransactions = [transactionId, ...receiverDocData.transactions];
     await updateDoc(receiverRef, {
-      transactions: arrayUnion(transactionId),
+      transactions: updatedReceiverTransactions,
       money: receiverData.money + amount
     });
 
-    alert("El dinero fue enviado con éxito")
-    return true
+    alert("El dinero fue enviado con éxito");
+    return true;
 
   } catch (error) {
     console.error("Error en la transacción:", error);
     alert("Error en la transacción. Por favor, intenta de nuevo.");
-    return false
+    return false;
   }
 };
+
 
 export function DBContextProvider(props) {
     return (
