@@ -79,6 +79,21 @@ const getTransactions = async (transactions) => {
   }
 };
 
+const changeUsername = async (email, username) => {
+  try {
+    const userRef = doc(db, "users", email);
+
+    await updateDoc(userRef, {
+      name: username
+    });
+
+    alert("El nombre fue cambiado exitosamente :3")
+  } catch (error) {
+    alert("Ocurrió un error :(")
+    return
+  }
+}
+
 const createTransaction = async (amount, sender, receiver, date, senderTel, receiverTel) => {
   try {
     const transactionRef = collection(db, "transactions");
@@ -162,7 +177,8 @@ export function DBContextProvider(props) {
             getUser,
             getTransactions,
             newTransaction,
-            getUserWithTel
+            getUserWithTel,
+            changeUsername
         }}>
             {props.children}
         </DBContext.Provider>
