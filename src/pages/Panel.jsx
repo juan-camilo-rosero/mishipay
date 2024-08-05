@@ -74,6 +74,7 @@ function Panel() {
       <div className={`fixed w-screen h-screen z-10 bg-secondary items-center justify-center ${loading ? "flex" : "hidden"}`}>
         <h2 className='text-2xl text-primary font-semibold'>Cargando...</h2>
       </div>
+      <Account/>
       <Balance />
       <div className='w-full h-[2vh] bg-secondary' />
       <section className='w-full h-[68vh] lg:h-[73vh] overflow-y-auto lg:hidden bg-secondary'>
