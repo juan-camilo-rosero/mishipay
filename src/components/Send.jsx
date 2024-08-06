@@ -88,7 +88,7 @@ function Send() {
           }}
         />
 
-        <button type="submit" className={`w-full rounded-lg bg-primary text-secondary py-2 text-xl lg:text-lg font-semibold transition-all focus:border-opacity-100 ${loading ? "opacity-50 cursor-default" : "opacity-100 cursor-pointer"}`}>{loading ? "Enviando..." : "Enviar"}</button>
+        <button type="submit" className={`w-full rounded-lg bg-primary text-secondary hover:bg-primaryDarker py-2 text-xl lg:text-lg font-semibold transition-all focus:border-opacity-100 ${loading ? "opacity-50 cursor-default" : "opacity-100 cursor-pointer"}`}>{loading ? "Enviando..." : "Enviar"}</button>
       </form>
     </div>
   );
