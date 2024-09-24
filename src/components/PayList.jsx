@@ -86,9 +86,9 @@ function PayList() {
   const [formattedAmount, setFormattedAmount] = useState('');
   const [type, setType] = useState('gasto_fijo');
   const [editIndex, setEditIndex] = useState(null);
+  const [filterType, setFilterType] = useState('todos'); // Estado para el filtro
 
   useEffect(() => {
-    // Cargar los pagos del localStorage al inicializar el componente
     const storedPayments = localStorage.getItem('payments');
     if (storedPayments) {
       setPaymentsArray(JSON.parse(storedPayments));
@@ -97,7 +97,6 @@ function PayList() {
   }, []);
 
   useEffect(() => {
-    // Actualizar el localStorage solo si hay cambios en paymentsArray
     if (paymentsArray.length > 0) {
       localStorage.setItem('payments', JSON.stringify(paymentsArray));
     }
@@ -118,7 +117,7 @@ function PayList() {
   };
 
   const handleAmountChange = (e) => {
-    const value = e.target.value.replace(/[^0-9]/g, ''); // Eliminar todo lo que no sea un número
+    const value = e.target.value.replace(/[^0-9]/g, '');
     setAmount(value);
     setFormattedAmount(Number(value).toLocaleString('es-CO', {
       style: 'currency',
@@ -149,7 +148,6 @@ function PayList() {
       setPaymentsArray([...paymentsArray, newPayment]);
     }
 
-    // Resetear los campos del formulario
     setName('');
     setAmount('');
     setFormattedAmount('');
@@ -165,18 +163,30 @@ function PayList() {
     setPaymentsArray(updatedPayments);
   };
 
+  // Filtrar los pagos según el tipo seleccionado en el filtro
+  const filteredPayments = filterType === 'todos'
+    ? paymentsArray
+    : paymentsArray.filter(payment => payment.type === filterType);
+
   return (
     <div className="w-full my-10 flex flex-col items-center gap-6 lg:my-4 lg:gap-3 overflow-y-auto h-[42vh]">
       <div className="w-full h-[42vh] overflow-y-scroll px-4 py-2">
         <div className='w-full flex items-center justify-center mb-4'>
-          <figure className='py-2 flex items-center justify-start rounded-lg w-2/3'>
-            <p className='font-semibold text-primary text-lg'>Filtrar</p>
-            <button className='w-8 h-8 rounded-lg bg-black/5 ml-4 flex items-center justify-center'>
-              <RiFilter2Fill className='text-lg text-primary'/>
-            </button>
+          <figure className='py-2 flex items-center justify-between rounded-lg w-2/3'>
+            {/* Filtro */}
+            <select
+              className='w-full outline-none border-opacity-50 text-black rounded-lg bg-third py-3 px-4 text-lg transition-all focus:border-opacity-100 mb-3'
+              onChange={(e) => setFilterType(e.target.value)} // Actualizar el estado del filtro
+              value={filterType}
+            >
+              <option value="todos">Ver todos</option>
+              <option value="gasto_fijo">Gastos fijos</option>
+              <option value="gasto_variable">Gastos variables</option>
+              <option value="gasto_innecesario">Gastos innecesarios</option>
+            </select>
           </figure>
         </div>
-        {paymentsArray.map((pay, index) => (
+        {filteredPayments.map((pay, index) => (
           <div key={index} className="flex flex-row w-full items-center mb-2">
             <p className="w-1/6 text-center text-lg font-bold">{index + 1}.</p>
             <figure className="flex flex-row w-2/3 bg-black bg-opacity-5 items-center gap-3 p-2 md:p-4 md:rounded-xl rounded-lg lg:py-2">
@@ -245,26 +255,19 @@ function PayList() {
               <option value="gasto_innecesario">Gasto innecesario</option>
             </select>
             <button type="submit" className="w-full rounded-lg bg-primary text-secondary py-2 text-xl font-semibold transition-all">
-              {editIndex !== null ? 'Guardar Cambios' : 'Crear'}
+              {editIndex !== null ? 'Guardar cambios' : 'Crear pago'}
             </button>
-            {editIndex !== null && ( // Mostrar botón de eliminar solo si se está editando
-              <button 
-                type="button" 
-                className="w-full rounded-lg bg-red-600 text-secondary mt-2 py-2 text-xl font-semibold transition-all" 
-                onClick={handleDelete}
-              >
+            {editIndex !== null && (
+              <button onClick={handleDelete} className="w-full rounded-lg bg-red-500 text-secondary py-2 text-xl font-semibold transition-all mt-2">
                 Eliminar
               </button>
             )}
-            <button className="w-full rounded-lg bg-black/5 hover:bg-black/10 text-primary mt-2 py-2 text-xl font-semibold transition-all" onClick={e => {
-              e.preventDefault();
-              setShowCreatePayment(false);
-            }}>Cancelar</button>
           </form>
         </div>
       )}
     </div>
   );
 }
+
 
 export default PayList;
