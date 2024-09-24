@@ -137,8 +137,21 @@ function PayList() {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
+  
+    // Validar que el nombre no esté vacío
+    if (name.trim() === '') {
+      alert('Por favor, ingresa un nombre válido.');
+      return;
+    }
+  
+    // Validar que el monto sea un número válido mayor que 0
+    if (!amount || isNaN(amount) || Number(amount) <= 0) {
+      alert('Por favor, ingresa un valor válido mayor que 0.');
+      return;
+    }
+  
     const newPayment = { name, amount: Number(amount), type };
-
+  
     if (editIndex !== null) {
       const updatedPayments = [...paymentsArray];
       updatedPayments[editIndex] = newPayment;
@@ -147,7 +160,8 @@ function PayList() {
     } else {
       setPaymentsArray([...paymentsArray, newPayment]);
     }
-
+  
+    // Limpiar los campos después de crear o editar el pago
     setName('');
     setAmount('');
     setFormattedAmount('');
