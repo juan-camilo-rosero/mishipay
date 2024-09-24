@@ -169,13 +169,13 @@ function PayList() {
     : paymentsArray.filter(payment => payment.type === filterType);
 
   return (
-    <div className="w-full my-10 flex flex-col items-center gap-6 lg:my-4 lg:gap-3 overflow-y-auto h-[42vh]">
-      <div className="w-full h-[42vh] overflow-y-scroll px-4 py-2">
+    <div className="w-full my-10 flex flex-col items-center gap-6 lg:my-4 lg:gap-3 overflow-y-auto pb-24">
+      <div className="w-full h-full lg:h-[42vh] overflow-y-auto px-4 py-2">
         <div className='w-full flex items-center justify-center mb-4'>
           <figure className='py-2 flex items-center justify-between rounded-lg w-2/3'>
             {/* Filtro */}
             <select
-              className='w-full outline-none border-opacity-50 text-black rounded-lg bg-third py-3 px-4 text-lg transition-all focus:border-opacity-100 mb-3'
+              className='w-full outline-none border-opacity-50 text-black rounded-lg bg-third lg:bg-black/5 py-3 px-4 text-lg transition-all focus:border-opacity-100 mb-3'
               onChange={(e) => setFilterType(e.target.value)} // Actualizar el estado del filtro
               value={filterType}
             >
@@ -225,7 +225,7 @@ function PayList() {
       </div>
 
       {showCreatePayment && (
-        <div className="absolute w-full h-full px-8 bg-secondary z-40 rounded-2xl flex-col items-center pb-28 lg:pb-8 lg:bg-third lg:h-[45vh] lg:overflow-y-auto lg:w-[34vw] flex">
+        <div className="absolute w-full h-full px-8 bg-secondary z-40 rounded-2xl flex-col items-center lg:pb-8 lg:bg-third lg:h-[45vh] overflow-y-auto lg:w-[34vw] flex pb-28">
           <form onSubmit={handleFormSubmit} className="flex flex-col gap-2 py-6 lg:py-0 md:w-1/2 lg:w-3/4">
             <h2 className="text-2xl font-semibold mt-4 mb-4 lg:mt-8">{editIndex !== null ? 'Editar Pago' : 'Crear Pago'}</h2>
             <label className="text-lg font-semibold">Nombre</label>
