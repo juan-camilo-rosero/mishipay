@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { RiArrowUpSLine, RiArrowDownSLine, RiPencilFill, RiAddCircleFill } from "react-icons/ri";
+import { RiArrowUpSLine, RiArrowDownSLine, RiPencilFill, RiFilter2Fill } from "react-icons/ri";
 
 class StaticArray {
   constructor(size) {
@@ -77,139 +77,192 @@ class DynamicArray extends StaticArray {
   }
 }
 
-const initialPayments = [
-  {
-    name: "Arriendo local",
-    amount: 1200000
-  },
-  {
-    name: "Inventario",
-    amount: 750000
-  },
-  {
-    name: "Impuestos",
-    amount: 645000
-  },
-];
-
 function PayList() {
-  const [dynamicPayments, setDynamicPayments] = useState(new DynamicArray(initialPayments.length));
   const [paymentsArray, setPaymentsArray] = useState([]);
-  const [name, setName] = useState("");
-  const [amount, setAmount] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [showCreatePayment, setShowCreatePayment] = useState(false);
-  const [rotated, setRotated] = useState(false);
+  const [name, setName] = useState('');
+  const [amount, setAmount] = useState('');
+  const [formattedAmount, setFormattedAmount] = useState('');
+  const [type, setType] = useState('gasto_fijo');
+  const [editIndex, setEditIndex] = useState(null);
 
   useEffect(() => {
-    const paymentArray = new DynamicArray(initialPayments.length);
-    initialPayments.forEach(payment => paymentArray.insert(payment));
-    setDynamicPayments(paymentArray);
-    setPaymentsArray([...paymentArray.array.slice(0, paymentArray.length)]);
+    // Cargar los pagos del localStorage al inicializar el componente
+    const storedPayments = localStorage.getItem('payments');
+    if (storedPayments) {
+      setPaymentsArray(JSON.parse(storedPayments));
+    }
+    setLoading(false);
   }, []);
 
-  const swapItems = (index1, index2) => {
-    dynamicPayments.swap(index1, index2);
-    setPaymentsArray([...dynamicPayments.array.slice(0, dynamicPayments.length)]);
+  useEffect(() => {
+    // Actualizar el localStorage solo si hay cambios en paymentsArray
+    if (paymentsArray.length > 0) {
+      localStorage.setItem('payments', JSON.stringify(paymentsArray));
+    }
+  }, [paymentsArray]);
+
+  const handleEditClick = (index) => {
+    setEditIndex(index);
+    const payment = paymentsArray[index];
+    setName(payment.name);
+    setAmount(payment.amount);
+    setFormattedAmount(payment.amount.toLocaleString('es-CO', {
+      style: 'currency',
+      currency: 'COP',
+      minimumFractionDigits: 0
+    }));
+    setType(payment.type);
+    setShowCreatePayment(true);
   };
 
-  const handleCreate = async e => {
-    e.preventDefault();
-    if (name && amount) {
-      const newPayment = { name, amount };
-      dynamicPayments.insert(newPayment);
-      setPaymentsArray([...dynamicPayments.array.slice(0, dynamicPayments.length)]);
-      setName("");
-      setAmount("");
+  const handleAmountChange = (e) => {
+    const value = e.target.value.replace(/[^0-9]/g, ''); // Eliminar todo lo que no sea un número
+    setAmount(value);
+    setFormattedAmount(Number(value).toLocaleString('es-CO', {
+      style: 'currency',
+      currency: 'COP',
+      minimumFractionDigits: 0
+    }));
+  };
+
+  const handleDelete = () => {
+    if (editIndex !== null) {
+      const updatedPayments = paymentsArray.filter((_, index) => index !== editIndex);
+      setPaymentsArray(updatedPayments);
+      setEditIndex(null);
       setShowCreatePayment(false);
-      setRotated(false);
     }
   };
 
-  return (
-    <div className="flex flex-col items-center bg-secondary pb-28 lg:pb-8 lg:bg-third lg:rounded-2xl lg:h-full lg:overflow-y-auto">
-      {showCreatePayment && (
-        <div className='absolute w-full h-full px-8 bg-secondary z-20 rounded-2xl flex flex-col items-center pb-28 lg:pb-8 lg:bg-third lg:rounded-2xl lg:h-full lg:overflow-y-auto'>
-          <h2 className="text-2xl font-semibold mt-4 mb-4 lg:mt-8">Nuevo pago</h2>
-          <form className='flex flex-col gap-2 py-6' onSubmit={handleCreate}>
-            <label className="text-lg lg:text-[1rem] font-semibold lg:mt-2">Nombre</label>
-            <input 
-              type="text"
-              placeholder="Arriendo Local"
-              className="w-full outline-none border-2 border-black border-opacity-50 text-black rounded-lg bg-secondary py-1 px-4 text-lg lg:text-[1rem] transition-all focus:border-opacity-100 mb-4 lg:mb-6" 
-              onChange={e => {
-                setName(e.target.value);
-              }}
-              value={name}
-            />
-            <label className="text-lg lg:text-[1rem] font-semibold lg:mt-2">Valor</label>
-            <input 
-              type="text" 
-              placeholder="$0.00" 
-              className="w-full outline-none border-2 border-black border-opacity-50 text-black rounded-lg bg-secondary py-1 px-4 text-lg lg:text-[1rem] transition-all focus:border-opacity-100 lg:mb-0" 
-              onChange={e => {
-                const value = e.target.value;
-                const numberValue = parseInt(value.replace(/[^0-9]/g, ''), 10);
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    const newPayment = { name, amount: Number(amount), type };
 
-                if (!isNaN(numberValue)) {
-                  const formattedValue = numberValue.toLocaleString('es-CO', {
+    if (editIndex !== null) {
+      const updatedPayments = [...paymentsArray];
+      updatedPayments[editIndex] = newPayment;
+      setPaymentsArray(updatedPayments);
+      setEditIndex(null);
+    } else {
+      setPaymentsArray([...paymentsArray, newPayment]);
+    }
+
+    // Resetear los campos del formulario
+    setName('');
+    setAmount('');
+    setFormattedAmount('');
+    setType('gasto_fijo');
+    setShowCreatePayment(false);
+  };
+
+  const swapItems = (index1, index2) => {
+    const updatedPayments = [...paymentsArray];
+    const temp = updatedPayments[index1];
+    updatedPayments[index1] = updatedPayments[index2];
+    updatedPayments[index2] = temp;
+    setPaymentsArray(updatedPayments);
+  };
+
+  return (
+    <div className="w-full my-10 flex flex-col items-center gap-6 lg:my-4 lg:gap-3 overflow-y-auto h-[42vh]">
+      <div className="w-full h-[42vh] overflow-y-scroll px-4 py-2">
+        <div className='w-full flex items-center justify-center mb-4'>
+          <figure className='py-2 flex items-center justify-start rounded-lg w-2/3'>
+            <p className='font-semibold text-primary text-lg'>Filtrar</p>
+            <button className='w-8 h-8 rounded-lg bg-black/5 ml-4 flex items-center justify-center'>
+              <RiFilter2Fill className='text-lg text-primary'/>
+            </button>
+          </figure>
+        </div>
+        {paymentsArray.map((pay, index) => (
+          <div key={index} className="flex flex-row w-full items-center mb-2">
+            <p className="w-1/6 text-center text-lg font-bold">{index + 1}.</p>
+            <figure className="flex flex-row w-2/3 bg-black bg-opacity-5 items-center gap-3 p-2 md:p-4 md:rounded-xl rounded-lg lg:py-2">
+              <div
+                className="w-8 h-8 lg:w-10 lg:h-10 rounded-full bg-primary flex items-center justify-center cursor-pointer"
+                onClick={() => handleEditClick(index)}
+              >
+                <RiPencilFill className="text-xl text-secondary" />
+              </div>
+              <div className="">
+                <p className="text-[1.1rem] font-semibold">{pay.name}</p>
+                <p className="text-sm font-semibold text-primary">
+                  {pay.amount.toLocaleString('es-CO', {
                     style: 'currency',
                     currency: 'COP',
                     minimumFractionDigits: 0
-                  });
-                  e.target.value = formattedValue;
-                  setAmount(numberValue);
-                } else {
-                  e.target.value = '';
-                  setAmount('');
-                }
-              }}
-            />
-            <button type="submit" className={`w-full rounded-lg bg-primary text-secondary py-2 text-xl lg:text-lg font-semibold transition-all focus:border-opacity-100 ${loading ? "opacity-50 cursor-default" : "opacity-100 cursor-pointer"}`}>{loading ? "Creando..." : "Crear"}</button>
-          </form>
-        </div>
-      )}
-      <h2 className="text-2xl font-semibold mt-4 mb-4 lg:mt-8">Lista de pagos</h2>
-      <div 
-        className={`rounded-full absolute right-2 cursor-pointer mt-3 md:mr-9 bg-third lg:mr-12 z-30 transform transition-transform ${rotated ? 'rotate-45' : ''}`}
-        onClick={() => {
-          setShowCreatePayment(!showCreatePayment);
-          setRotated(!rotated);
-        }}
-      >
-        <RiAddCircleFill className='text-5xl text-primary lg:rounded-full'/>
-      </div>
-      <div className='w-full my-10 flex flex-col items-center gap-6 lg:my-4 lg:gap-3'>
-        {paymentsArray.map((pay, index) => (
-          <div key={index} className='flex flex-row w-full items-center'>
-            <p className='w-1/6 text-center text-lg font-bold'>{index + 1}.</p>
-            <figure className='flex flex-row w-2/3 bg-black bg-opacity-5 items-center gap-3 p-2 md:p-4 md:rounded-xl rounded-lg lg:py-2'>
-              <div className='w-8 h-8 lg:w-10 lg:h-10 rounded-full bg-primary flex items-center justify-center cursor-pointer'>
-                <RiPencilFill className='text-xl text-secondary'/>
-              </div>
-              <div className=''>
-                <p className='text-[1.1rem] font-semibold'>{pay.name}</p>
-                <p className='text-sm font-semibold text-primary'>{pay.amount.toLocaleString('es-CO', {
-                  style: 'currency',
-                  currency: 'COP',
-                  minimumFractionDigits: 0
-                })}
+                  })}
                 </p>
               </div>
             </figure>
-            <div className='w-1/6 flex flex-col items-center justify-center h-full'>
-              <RiArrowUpSLine 
+            <div className="w-1/6 flex flex-col items-center justify-center h-full">
+              <RiArrowUpSLine
                 className={`text-4xl text-primary ${index === 0 ? "opacity-50" : "opacity-100 cursor-pointer"}`}
                 onClick={() => index > 0 && swapItems(index, index - 1)}
               />
-              <RiArrowDownSLine 
+              <RiArrowDownSLine
                 className={`text-4xl text-primary ${index === paymentsArray.length - 1 ? "opacity-50" : "opacity-100 cursor-pointer"}`}
                 onClick={() => index < paymentsArray.length - 1 && swapItems(index, index + 1)}
               />
             </div>
           </div>
         ))}
+        <div className='w-full flex items-center justify-center'>
+          <button onClick={() => setShowCreatePayment(true)} className='w-2/3 md:w-1/4 lg:w-2/3 mt-2 py-2 px-4 bg-primary text-secondary font-semibold text-center rounded-lg text-lg'>Crear pago</button>
+        </div>
       </div>
+
+      {showCreatePayment && (
+        <div className="absolute w-full h-full px-8 bg-secondary z-40 rounded-2xl flex-col items-center pb-28 lg:pb-8 lg:bg-third lg:h-[45vh] lg:overflow-y-auto lg:w-[34vw] flex">
+          <form onSubmit={handleFormSubmit} className="flex flex-col gap-2 py-6 lg:py-0 md:w-1/2 lg:w-3/4">
+            <h2 className="text-2xl font-semibold mt-4 mb-4 lg:mt-8">{editIndex !== null ? 'Editar Pago' : 'Crear Pago'}</h2>
+            <label className="text-lg font-semibold">Nombre</label>
+            <input
+              type="text"
+              placeholder="Arriendo Local"
+              className="w-full outline-none border-2 border-black border-opacity-50 text-black rounded-lg bg-secondary py-1 px-4 text-lg transition-all focus:border-opacity-100 mb-4"
+              onChange={e => setName(e.target.value)}
+              value={name}
+            />
+            <label className="text-lg font-semibold">Valor</label>
+            <input
+              type="text"
+              placeholder="$0.00"
+              className="w-full outline-none border-2 border-black border-opacity-50 text-black rounded-lg bg-secondary py-1 px-4 text-lg transition-all focus:border-opacity-100 mb-3"
+              onChange={handleAmountChange}
+              value={formattedAmount}
+            />
+            <label className="text-lg font-semibold">Categoría</label>
+            <select
+              className="w-full outline-none border-2 border-black border-opacity-50 text-black rounded-lg bg-secondary py-2 px-4 text-lg transition-all focus:border-opacity-100 mb-3"
+              onChange={e => setType(e.target.value)}
+              value={type}
+            >
+              <option value="gasto_fijo">Gasto fijo</option>
+              <option value="gasto_variable">Gasto variable</option>
+              <option value="gasto_innecesario">Gasto innecesario</option>
+            </select>
+            <button type="submit" className="w-full rounded-lg bg-primary text-secondary py-2 text-xl font-semibold transition-all">
+              {editIndex !== null ? 'Guardar Cambios' : 'Crear'}
+            </button>
+            {editIndex !== null && ( // Mostrar botón de eliminar solo si se está editando
+              <button 
+                type="button" 
+                className="w-full rounded-lg bg-red-600 text-secondary mt-2 py-2 text-xl font-semibold transition-all" 
+                onClick={handleDelete}
+              >
+                Eliminar
+              </button>
+            )}
+            <button className="w-full rounded-lg bg-black/5 hover:bg-black/10 text-primary mt-2 py-2 text-xl font-semibold transition-all" onClick={e => {
+              e.preventDefault();
+              setShowCreatePayment(false);
+            }}>Cancelar</button>
+          </form>
+        </div>
+      )}
     </div>
   );
 }
