@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { RiArrowUpSLine, RiArrowDownSLine, RiPencilFill } from "react-icons/ri";
+import { RiArrowUpSLine, RiArrowDownSLine, RiPencilFill, RiAddCircleFill } from "react-icons/ri";
 
 class StaticArray {
   constructor(size) {
@@ -95,6 +95,11 @@ const initialPayments = [
 function PayList() {
   const [dynamicPayments, setDynamicPayments] = useState(new DynamicArray(initialPayments.length));
   const [paymentsArray, setPaymentsArray] = useState([]);
+  const [name, setName] = useState("");
+  const [amount, setAmount] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [showCreatePayment, setShowCreatePayment] = useState(false);
+  const [rotated, setRotated] = useState(false);
 
   useEffect(() => {
     const paymentArray = new DynamicArray(initialPayments.length);
@@ -108,13 +113,76 @@ function PayList() {
     setPaymentsArray([...dynamicPayments.array.slice(0, dynamicPayments.length)]);
   };
 
+  const handleCreate = async e => {
+    e.preventDefault();
+    if (name && amount) {
+      const newPayment = { name, amount };
+      dynamicPayments.insert(newPayment);
+      setPaymentsArray([...dynamicPayments.array.slice(0, dynamicPayments.length)]);
+      setName("");
+      setAmount("");
+      setShowCreatePayment(false);
+      setRotated(false);
+    }
+  };
+
   return (
     <div className="flex flex-col items-center bg-secondary pb-28 lg:pb-8 lg:bg-third lg:rounded-2xl lg:h-full lg:overflow-y-auto">
+      {showCreatePayment && (
+        <div className='absolute w-full h-full px-8 bg-secondary z-20 rounded-2xl flex flex-col items-center pb-28 lg:pb-8 lg:bg-third lg:rounded-2xl lg:h-full lg:overflow-y-auto'>
+          <h2 className="text-2xl font-semibold mt-4 mb-4 lg:mt-8">Nuevo pago</h2>
+          <form className='flex flex-col gap-2 py-6' onSubmit={handleCreate}>
+            <label className="text-lg lg:text-[1rem] font-semibold lg:mt-2">Nombre</label>
+            <input 
+              type="text"
+              placeholder="Arriendo Local"
+              className="w-full outline-none border-2 border-black border-opacity-50 text-black rounded-lg bg-secondary py-1 px-4 text-lg lg:text-[1rem] transition-all focus:border-opacity-100 mb-4 lg:mb-6" 
+              onChange={e => {
+                setName(e.target.value);
+              }}
+              value={name}
+            />
+            <label className="text-lg lg:text-[1rem] font-semibold lg:mt-2">Valor</label>
+            <input 
+              type="text" 
+              placeholder="$0.00" 
+              className="w-full outline-none border-2 border-black border-opacity-50 text-black rounded-lg bg-secondary py-1 px-4 text-lg lg:text-[1rem] transition-all focus:border-opacity-100 lg:mb-0" 
+              onChange={e => {
+                const value = e.target.value;
+                const numberValue = parseInt(value.replace(/[^0-9]/g, ''), 10);
+
+                if (!isNaN(numberValue)) {
+                  const formattedValue = numberValue.toLocaleString('es-CO', {
+                    style: 'currency',
+                    currency: 'COP',
+                    minimumFractionDigits: 0
+                  });
+                  e.target.value = formattedValue;
+                  setAmount(numberValue);
+                } else {
+                  e.target.value = '';
+                  setAmount('');
+                }
+              }}
+            />
+            <button type="submit" className={`w-full rounded-lg bg-primary text-secondary py-2 text-xl lg:text-lg font-semibold transition-all focus:border-opacity-100 ${loading ? "opacity-50 cursor-default" : "opacity-100 cursor-pointer"}`}>{loading ? "Creando..." : "Crear"}</button>
+          </form>
+        </div>
+      )}
       <h2 className="text-2xl font-semibold mt-4 mb-4 lg:mt-8">Lista de pagos</h2>
+      <div 
+        className={`rounded-full absolute right-2 cursor-pointer mt-3 md:mr-9 bg-third lg:mr-12 z-30 transform transition-transform ${rotated ? 'rotate-45' : ''}`}
+        onClick={() => {
+          setShowCreatePayment(!showCreatePayment);
+          setRotated(!rotated);
+        }}
+      >
+        <RiAddCircleFill className='text-5xl text-primary lg:rounded-full'/>
+      </div>
       <div className='w-full my-10 flex flex-col items-center gap-6 lg:my-4 lg:gap-3'>
         {paymentsArray.map((pay, index) => (
           <div key={index} className='flex flex-row w-full items-center'>
-            <p className='w-1/6 text-center text-lg font-bold'>{index}.</p>
+            <p className='w-1/6 text-center text-lg font-bold'>{index + 1}.</p>
             <figure className='flex flex-row w-2/3 bg-black bg-opacity-5 items-center gap-3 p-2 md:p-4 md:rounded-xl rounded-lg lg:py-2'>
               <div className='w-8 h-8 lg:w-10 lg:h-10 rounded-full bg-primary flex items-center justify-center cursor-pointer'>
                 <RiPencilFill className='text-xl text-secondary'/>
