@@ -5,6 +5,7 @@ import Nav from '../components/Nav';
 import History from '../components/History';
 import PayList from '../components/PayList';
 import Account from '../components/Account';
+import Map from '../components/Map';
 import Send from '../components/Send';
 import Balance from '../components/Balance';
 import { UserContext } from '../context/UserContext';
@@ -59,6 +60,9 @@ function Panel() {
     case "account":
       selectedSection = <Account />;
       break;
+    case "map":
+      selectedSection = <Map />;
+      break;
     case "send":
       selectedSection = <Send />;
       desktopSelectedSection = <Send />;
@@ -75,6 +79,7 @@ function Panel() {
         <h2 className='text-2xl text-primary font-semibold'>Cargando...</h2>
       </div>
       <Account/>
+      <Map/>
       <Balance />
       <div className='w-full h-[2vh] bg-secondary' />
       <section className='w-full h-[68vh] lg:h-[73vh] overflow-y-auto lg:hidden bg-secondary'>
