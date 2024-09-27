@@ -196,7 +196,7 @@ function PayList() {
               <option value="todos">Ver todos</option>
               <option value="gasto_fijo">Gastos fijos</option>
               <option value="gasto_variable">Gastos variables</option>
-              <option value="gasto_innecesario">Gastos innecesarios</option>
+              <option value="gasto_hormiga">Gastos hormiga</option>
             </select>
           </figure>
         </div>
@@ -266,7 +266,7 @@ function PayList() {
             >
               <option value="gasto_fijo">Gasto fijo</option>
               <option value="gasto_variable">Gasto variable</option>
-              <option value="gasto_innecesario">Gasto innecesario</option>
+              <option value="gasto_hormiga">Gasto innecesario</option>
             </select>
             <button type="submit" className="w-full rounded-lg bg-primary text-secondary py-2 text-xl font-semibold transition-all">
               {editIndex !== null ? 'Guardar cambios' : 'Crear pago'}
