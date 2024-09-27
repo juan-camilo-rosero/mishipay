@@ -6,6 +6,7 @@ function Map() {
     const mapsApiKey = import.meta.env.VITE_MAPS_API_KEY; // Usa la variable de entorno correcta
     const { map, setMap } = useContext(SectionContext);
     const [mapInstance, setMapInstance] = useState(null); // Instancia del mapa
+    const [atm, setAtm] = useState(false);
     const [marker, setMarker] = useState(null); // Instancia del marcador
     const [autocomplete, setAutocomplete] = useState(null); // Autocomplete de Google Places
     const [lat, setLat] = useState(null); // Latitud
@@ -89,8 +90,19 @@ function Map() {
                     />
                     <RiCloseCircleFill className="text-5xl flex text-secondary cursor-pointer hover:text-third transition-all z-20" onClick={() => setMap(false)} />
                 </div>
-                {/* Mapa */}
                 <div id="google-map" className="w-full h-full bg-secondary rounded-xl"></div>
+                <div className="fixed bottom-24 h-20 w-full bg-primary z-30 flex items-center justify-center">
+                    <button className="py-2 px-10 rounded-lg bg-secondary text-primary text-xl font-semibold" onClick={() => setAtm(true)}>ver cajeros cercanos</button>
+                </div>
+            </div>
+            <div className={`w-screen h-screen top-20 bg-secondary lg:bg-black z-50 lg:bg-opacity-30 flex flex-col fixed justify-start items-center px-6 pt-6 lg:items-center transition-all ${(atm) ? "fixed" : "hidden"}`}>
+                <h2 className="text-center text-primary text-3xl font-semibold">Cajeros cercanos:</h2>
+                <ol className="font-medium text-xl text-black mt-6 flex flex-col gap-6">
+                    <li>1. Universidad Nacional de Colombia, coordenadas: {lat}, {lng}</li>
+                    <li>2. Centro Comercial Gran Estación, coordenadas: 4.6845211, -74.1174496</li>
+                    <li>3. Centro Comercial Titán Plaza, coordenadas: 4.718962, -74.1033124</li>
+                </ol>
+                <button className="py-3 px-10 rounded-lg bg-third text-primary text-xl font-semibold mt-14 w-full" onClick={() => setAtm(false)}>Volver al mapa</button>
             </div>
         </section>
     );
