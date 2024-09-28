@@ -16,8 +16,8 @@ function Balance() {
                 setAccount(false)
                 setSection("send")
                 }} className="lg:hidden py-2 px-16 bg-secondary text-primary font-semibold text-xl rounded-md mt-4 z-10">Realizar pago</button>
-            <RiAccountCircleFill className="fixed top-5 right-5 text-4xl hidden lg:flex text-secondary lg:opacity-85 transition-all lg:hover:opacity-100 md:right-10 md:top-6 md:text-5xl cursor-pointer z-10" onClick={e => setAccount(true)}/>
-            <RiMap2Line className="fixed top-5 right-5 text-4xl lg:right-28 flex text-secondary lg:opacity-85 transition-all lg:hover:opacity-100 md:right-10 md:top-6 md:text-5xl cursor-pointer z-10" onClick={e => setMap(true)}/>
+            <RiAccountCircleFill className="fixed top-5 right-5 text-4xl hidden lg:flex text-secondary lg:opacity-85 transition-all lg:hover:opacity-100 md:right-10 md:top-6 md:text-[2.8rem] cursor-pointer z-10" onClick={e => setAccount(true)}/>
+            <RiMap2Line className="fixed top-5 right-5 text-4xl lg:right-28 flex text-secondary lg:opacity-85 transition-all lg:hover:opacity-100 md:right-10 md:top-6 md:text-[2.8rem] cursor-pointer z-10" onClick={e => setMap(true)}/>
         </div>
     )
 }
